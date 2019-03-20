@@ -1,0 +1,155 @@
+<html>
+
+<head>
+    <link rel="stylesheet" href="sayitright.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+    <nav>
+        <div class="nav_left">
+            <a href="HomePage.html">
+                <img src="imgsay/logo.png">
+            </a>
+        </div>
+        <div class="nav_right">
+            <ul>
+                <li><a href="HomePage.html">Home</a></li>
+                <li><a href="AboutUs.html">About US</a></li>
+                <li><a href="index.php">Blog</a></li>
+                <li><a href="buyfromus.html">Purchase</a></li>
+                <li><a href="contactus.html">Contact US</a></li>
+                <li><a href="signup.html" class="activetab">Sign Up</a></li>
+                <li><a href="login.html">Login</a></li>
+            </ul>
+        </div>
+    </nav>
+    <div class="content">
+        <div class="breadcrumb">
+            <img src="imgsay\home-banner.jpg" alt="Home Page">
+            <h6 id="breadcrumbh6">Home --> SIGN UP</h6>
+            <h2 id="breadcrumbh4">SIGN UP</h2>
+        </div>
+        <div class="signup" id="wrapper">
+            <form action="">
+                <div class="signupform" id="signupform">
+                    <div>
+                        <h2> Select the type of user</h2>
+                    </div>
+                    <div class="signupgrid" id="signupgrid">
+                        <div>
+                            <p class="individualsend" onclick="individualsignup()">INDIVIDUAL</p>
+                        </div>
+                        <div>
+                            <p class="eventsend" onclick="eventsignup()">EVENT</p>
+                        </div>
+                        <div>
+                            <p class="businesssend" onclick="businesssignup()">BUSINESS</p>
+                        </div>
+                    </div>
+                    <div class="individualsignupform" id="individualsignupform" style="display: none">
+                        <h3> Welcome to the individual registration</h3><br>
+                        <div>
+                            <input type="text" name="fname" value="Enter your name">
+                        </div>
+                        <div>
+                            <input type="text" name="lname" value="Enter last name">
+                        </div>
+                        <div>
+                            <input type="text" name="work" value="Enter place of work">
+                        </div>
+                        <div>
+                            <input type="text" name="school" value="Enter school">
+                        </div>
+                        <div>
+                            <input type="email" name="email" value="Enter email">
+                        </div>
+                        <div>
+                            <input type="text" name="password" value="Enter password">
+                        </div>
+                        <button onclick="location.href = 'individuallogin.html';" class="signupsend">SEND</button>
+                    </div>
+                    <div class="eventsignupform" id="eventsignupform" style="display: none">
+                        <h3> Welcome to the event log</h3><br>
+                        <div>
+                            <input type="text" name="fname" value="Enter your name">
+                        </div>
+                        <div>
+                            <input type="text" name="lname" value="Enter last name">
+                        </div>
+                        <div>
+                            <input type="email" name="email" value="Enter email">
+                        </div>
+                        <div>
+                            <input type="text" name="password" value="Enter password">
+                        </div>
+                        <button onclick="location.href = 'eventlogin.html';" class="signupsend">SEND</button>
+                    </div>
+                    <div class="businesssignupform" id="businesssignupform" style="display: none">
+                        <h3> Welcome to business records</h3><br>
+                        <div class="radiobuttons">
+                            <h5> type of Business: </h5>
+                            <input type="radio" name="businesstype" value="University"> University
+                            <input type="radio" name="businesstype" value="Company"> Company
+                        </div>
+                        <div>
+                            <input type="text" name="lname" value="Enter last name">
+                        </div>
+                        <div>
+                            <input type="email" name="email" value="Enter email">
+                        </div>
+                        <div>
+                            <input type="text" name="password" value="Enter password">
+                        </div>
+                        <button onclick="location.href = 'businesslogin.html';" class="signupsend">SEND</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <script type="text/javascript">
+    function individualsignup() {
+        document.getElementById("individualsignupform").style.display = "block";
+        document.getElementById("eventsignupform").style.display = "none";
+        document.getElementById("businesssignupform").style.display = "none";
+    }
+
+    function eventsignup() {
+        document.getElementById("individualsignupform").style.display = "none";
+        document.getElementById("eventsignupform").style.display = "block";
+        document.getElementById("businesssignupform").style.display = "none";
+    }
+
+    function businesssignup() {
+        document.getElementById("individualsignupform").style.display = "none";
+        document.getElementById("eventsignupform").style.display = "none";
+        document.getElementById("businesssignupform").style.display = "block";
+    }
+    </script>
+    <!-- <div id="mymodal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <p> Welcome to the individual registration</p>
+        </div>
+        <button1 onclick="myFunction()"></button>
+            <div id="form">
+                <p> Welcome to the individual registration</p>
+                <input type="text" name="email" value="Enter Email">
+            </div>
+            <script type="text/javascript">
+            function myFunction() {
+                var x = document.getElementById("form");
+            }
+            </script>
+    </div> -->
+    <div class="copyright">
+        <p> <br> </p>
+        <p> <br> </p>
+        <p> <br> </p>
+        <p class="white"> Copyright &copy 2019 All rights reserved</p>
+        <p class="white"> | This web is made with &#9825;</p>
+        <p class="blue">by DiazApps </p>
+    </div>
+</body>
+
+</html>

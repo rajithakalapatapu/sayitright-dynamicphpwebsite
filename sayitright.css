@@ -1,0 +1,993 @@
+body {
+    text-align: center;
+    /*font-family: 'Rajdhani';font-size: 22px;*/
+    background-color: #FFFFFF;
+}
+
+@media screen and (max-width: 600px) {
+
+    .nav_left,
+    .nav_right,
+    .shipping_left,
+    .shipping_right,
+    .settings_left,
+    .settings_right,
+    .contactusleft,
+    .contactusright {
+        max-width: 100%;
+    }
+
+    /* Convert horizontal nav links to vertical */
+    nav ul li {
+        float: none;
+        width: 100%;
+    }
+
+    .aboutus {
+        /* Start wrapping if the width is too low */
+        flex-wrap: wrap;
+    }
+
+    .contactussend,
+    .loginsend {
+        width: 100%;
+    }
+}
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 600px) {
+    .buyfromustable {
+        display: grid;
+        grid-gap: 10px;
+        grid-template-columns: repeat(1, 1fr);
+    }
+
+    .cardgrid {
+        margin: 10px;
+        display: grid;
+        grid-template-columns: repeat(1, 1fr);
+        margin: 0px auto 0px auto;
+        grid-column-gap: 30px;
+        grid-row-gap: 20px;
+        padding: 20px;
+    }
+
+
+    .homepagegrid {
+        margin: 10px;
+        display: grid;
+        grid-template-columns: repeat(1, 1fr);
+        margin: 0px auto 0px auto;
+        grid-column-gap: 0px;
+    }
+
+}
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {
+    .buyfromustable {
+        display: grid;
+        grid-gap: 10px;
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .cardgrid {
+        margin: 10px;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        margin: 0px auto 0px auto;
+        grid-column-gap: 30px;
+        grid-row-gap: 20px;
+        padding: 20px;
+    }
+
+    .homepagegrid {
+        margin: 10px;
+        display: grid;
+        grid-template-columns: repeat(1, 1fr);
+        grid-column-gap: 0px;
+    }
+
+}
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {
+    .buyfromustable {
+        display: grid;
+        grid-gap: 10px;
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .cardgrid {
+        margin: 10px;
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        margin: 0px auto 0px auto;
+        grid-column-gap: 30px;
+        grid-row-gap: 20px;
+        padding: 20px;
+    }
+
+    .homepagegrid {
+        display: grid;
+        grid-template-columns: auto auto;
+        grid-template-rows: auto auto;
+        margin: 0px auto 0px auto;
+        grid-column-gap: 0px;
+    }
+
+}
+
+.homepageleft img {
+    width: 600px;
+    height: 500px;
+}
+
+.copyright {
+    background-color: #000033;
+    width: 100%;
+    font-size: 0.70em Roboto;
+    font-style: italic;
+    text-align: center;
+}
+
+.nav_left,
+.nav_right,
+.shipping_left,
+.shipping_right,
+.settings_left,
+.settings_right,
+.modal-content-left,
+.modal-content-right,
+.contactusleft,
+.contactusright {
+    display: inline-block;
+    vertical-align: top;
+}
+
+nav {
+    background-color: #000033;
+    padding: 10px;
+    font-weight: bold;
+}
+
+nav ul {
+    list-style: none;
+}
+
+nav img {
+    float: left;
+    height: 80px;
+    width: 160px;
+}
+
+nav ul li {
+    float: left;
+}
+
+nav ul li a {
+    color: white;
+}
+
+nav ul li a:link {
+    columns: #777777;
+    widows: 125px;
+    text-decoration: none;
+    text-align: center;
+    padding: 15px;
+    text-transform: uppercase;
+}
+
+nav ul li a:hover {
+    color: rgb(0, 153, 255);
+}
+
+h2,
+h4,
+h5,
+h6 {
+    color: white;
+    /*font-family: 'Rajdhani'; */
+    font-family: serif;
+}
+
+h6 {
+    text-align: center;
+}
+
+h4 {
+    text-align: center;
+    /*    top: 30%;
+    position: absolute;*/
+}
+
+h5 {
+    padding: 10px;
+}
+
+#wrapper {
+    margin: 10% 10% 10% 10%;
+    width: 80%;
+    text-align: center;
+}
+
+.bkgnd {
+    background-image: url("imgsay/home-banner.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.copyright p {
+    display: inline;
+}
+
+.white {
+    color: white;
+}
+
+.content {}
+
+.breadcrumb {
+    position: relative;
+}
+
+#breadcrumbh6 {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 40%;
+    left: 0;
+    font-family: Verdana, Arial, sans-serif;
+}
+
+#breadcrumbh4 {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 55%;
+    left: 0;
+    color: white;
+    font-family: Verdana, Arial, sans-serif;
+}
+
+.breadcrumb img {
+    width: 100%;
+    height: 30%;
+}
+
+.aboutus {
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    background-color: #000033;
+}
+
+.aboutusimage img {
+    width: 550px;
+    height: 275px;
+    padding: 10px;
+    padding-left: 50px;
+    max-width: 100%;
+    max-height: 100%;
+}
+
+.aboutustext>h2 {
+    font-family: Verdana, Arial, sans-serif;
+}
+
+.aboutustext {
+    text-align: left;
+    padding: 30px;
+    font-family: Verdana, Arial, sans-serif;
+}
+
+.aboutustexth5 {
+    text-decoration: underline;
+    text-decoration-color: blue;
+}
+
+.aboutustext p {
+    color: white;
+    font-family: Verdana, Arial, sans-serif;
+}
+
+.contactus {
+    background-color: white;
+    color: black;
+    align-items: center;
+    display: flex;
+    background-color: white;
+    text-align: left;
+    justify-content: center;
+}
+
+.contactussend {
+    background-image: linear-gradient(to right, #3fcaff 0%, #a4ffb0 51%, #3fcaff 100%);
+    background-size: 200% auto;
+    color: #222222;
+    padding: 15px;
+    float: right;
+    border-radius: 5px;
+    border: none;
+    font-size: 1.2em;
+    font-family: Verdana, Arial, sans-serif;
+}
+
+.contactusgrid {
+    margin: 10px;
+    display: grid;
+    grid-template-columns: auto auto;
+    grid-template-rows: auto auto;
+    margin: 0px auto 0px auto;
+    grid-column-gap: 20px;
+    height: 30%;
+    width: 70%;
+    padding: 20px;
+}
+
+.contactusleft>div {
+    margin: 10px;
+    padding-right: 20px;
+}
+
+.contactusright>div {
+    margin: 10px;
+}
+
+input[type="text"],
+input[type="email"],
+textarea {
+    font-family: Verdana, Arial, sans-serif;
+    padding: 5px;
+}
+
+.buyfromuscontenttitle {
+    padding: 10px;
+    font-size: 160%;
+    font-weight: bolder;
+    font-family: Verdana, Arial, sans-serif;
+}
+
+.buyfromustabledata {
+    text-align: left;
+    border: 1px dotted;
+    margin: 20px;
+    padding: 20px;
+    font-family: Verdana, Arial, sans-serif;
+}
+
+.buyfromustabledata>img {
+    margin: auto 25% auto 25%;
+}
+
+.buyfromustabledata>img,
+#mymodelimg {
+    width: 180px;
+    height: 180px;
+}
+
+.footer {
+    background-image: linear-gradient(to right, #3fcaff 0%, #a4ffb0 100%);
+    padding: 10px;
+    margin: auto;
+}
+
+#footerh2 {
+    margin: 10px 140px 10px 140px;
+    font-weight: bold;
+    color: #000033;
+    font-family: Verdana, Arial, sans-serif;
+}
+
+#footerh6 {
+    margin: 5px 140px 20px 140px;
+    color: #777777;
+    text-align: left;
+    font-family: Verdana, Arial, sans-serif;
+}
+
+.footerleft {
+    display: inline-block;
+    vertical-align: center;
+    margin-right: 25%;
+    text-align: left;
+}
+
+.footerright {
+    display: inline-block;
+    vertical-align: center;
+    position: relative;
+}
+
+#footersubscribe {
+    border-radius: 12px;
+    background-image: linear-gradient(to right, #3fcaff 0%, #a4ffb0 100%);
+    position: absolute;
+    right: 2%;
+    bottom: 20%;
+    padding: 0 20px 0 20px;
+}
+
+#footertextarea {
+    resize: none;
+    border-radius: 12px;
+}
+
+#cartbuy {
+    text-align: center;
+    background-image: linear-gradient(to right, #3fcaff 0%, #a4ffb0 100%);
+    border-radius: 30px;
+    padding: 5px 25px 5px 25px;
+    float: right;
+    border-width: 5px;
+}
+
+.homepageright_playbutton {
+    display: inline-block;
+    padding: 10px;
+    position: relative;
+    left: -180px;
+}
+
+.homepageright_playtext {
+    display: inline-block;
+    position: relative;
+    left: -170px;
+}
+
+.homepageright>h1 {
+    line-height: 200%;
+    color: white;
+    font-family: Georgia, serif;
+    text-align: left;
+}
+
+.homepageright>h6 {
+    color: white;
+    font-family: Georgia, serif;
+    text-align: left;
+}
+
+.conferenceslist>h1 {
+    line-height: 200%;
+    color: black;
+    font-family: Verdana, sans-serif;
+    text-align: center;
+}
+
+.summary_card_icon {
+    float: left;
+}
+
+.summary_icon {
+    width: 80px;
+    height: 80px;
+    padding: 20px 0 0 20px;
+}
+
+.summary_card_text {
+    float: right;
+    text-align: right;
+    padding: 10px;
+    font-family: Verdana, Arial, sans-serif;
+}
+
+.cardgrid>div>*,
+.individuallogintext {
+    font-family: Verdana, Arial, sans-serif;
+}
+
+.summary_card_label {
+    clear: both;
+    margin: auto auto -17 auto;
+}
+
+.label {
+    background-color: #efefef;
+    text-align: right;
+    padding: 20px;
+}
+
+.bluecard {
+    background-color: #000077;
+}
+
+.blue_header {
+    border-bottom-color: #000077;
+    border-bottom-style: dotted;
+    border-bottom-width: 1px;
+}
+
+.greycard {
+    background-color: grey;
+}
+
+.black_header {
+    border-bottom-color: black;
+    border-bottom-style: dotted;
+    border-bottom-width: 1px;
+}
+
+.greencard {
+    background-color: #00bb00;
+}
+
+.grey_header {
+    border-bottom-color: grey;
+    border-bottom-style: dotted;
+    border-bottom-width: 1px;
+}
+
+.grey_background {
+    background-color: #e8e8e8;
+}
+
+.redcard {
+    background-color: red;
+}
+
+.yellowcard {
+    background-color: #f2bf26;
+}
+
+.cyancard {
+    background-color: #338ba5;
+}
+
+.whitecard {
+    background-color: white;
+}
+
+.blackcard {
+    background-color: black;
+}
+
+.onecard {
+    text-align: left;
+    border-radius: 5px;
+    border: 1px dotted;
+    border-color: grey;
+}
+
+.white_text {
+    line-height: 1.5em;
+    color: white;
+    padding: 10px;
+}
+
+.black_text {
+    color: black;
+    padding: 10px;
+}
+
+.bold_text {
+    font-weight: bold;
+}
+
+.card_content {
+    line-height: 1.5em;
+}
+
+.conferenceslist>h2 {
+    color: black;
+    position: relative;
+    top: 30%;
+    padding: 10px;
+    font-size: 140%;
+    font-weight: bolder;
+    font-family: Verdana, Arial, sans-serif;
+}
+
+#conferencedetails {
+    border-collapse: collapse;
+    border-spacing: 5px;
+    width: 100%;
+}
+
+.table_header {
+    color: black;
+    font-family: Verdana, Arial, sans-serif;
+    font-size: 120%;
+    text-align: center;
+}
+
+.table_cell {
+    color: black;
+    font-family: Verdana, Arial, sans-serif;
+    padding: 10px;
+}
+
+.loginsend {
+    background-image: linear-gradient(to right, #3fcaff 0%, #a4ffb0 100%);
+    padding: 10px;
+    margin-right: 20px;
+    border-radius: 5px;
+    border: none;
+}
+
+.login {
+    text-align: left;
+    justify-content: center;
+}
+
+.loginform>div,
+.loginform>div>* {
+    padding: 10px;
+}
+
+.loginform {
+    box-shadow: 2px 2px 5px 5px #888888;
+    margin: auto 30% auto 30%;
+}
+
+.signupgrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    margin: 0px auto 0px auto;
+    /*height: 30%;*/
+    /*padding: 20px;*/
+    width: 80%;
+}
+
+.signupgrid>div>p {
+    margin: 10px;
+}
+
+.signupform {
+    padding: 10px;
+    box-shadow: 5px 5px #888888;
+    width: 45%;
+    position: relative;
+    left: 30%;
+    font-family: Verdana, Arial, sans-serif;
+}
+
+.signupform>div>h2,
+.signupform>div>h4 {
+    color: black;
+    font-family: Verdana, Arial, sans-serif;
+}
+
+.individualsend,
+.eventsend,
+.businesssend {
+    background-image: linear-gradient(to right, #3fcaff 0%, #a4ffb0 100%);
+    padding: 10px;
+    border-radius: 5px;
+    font-family: Verdana, Arial, sans-serif;
+}
+
+.modal {
+    display: none;
+    /* Hidden by default */
+    position: fixed;
+    /* Stay in place */
+    z-index: 1;
+    /* Sit on top */
+    padding-top: 100px;
+    /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%;
+    /* Full width */
+    height: 100%;
+    /* Full height */
+    overflow: auto;
+    /* Enable scroll if needed */
+    background-color: rgb(0, 0, 0);
+    /* Fallback color */
+    background-color: rgba(0, 0, 0, 0.7);
+    /* Black w/ opacity */
+}
+
+.modal-content>img {
+    width: 100px;
+    height: 100px;
+    float: left;
+
+}
+
+/* Modal Content */
+.modal-content {
+    background-color: #fefefe;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 40%;
+}
+
+
+.modal-content>* {
+    padding: 5px;
+}
+
+.modal_title>h4 {
+    float: left;
+    color: black;
+}
+
+.modal-content-right>h4 {
+    color: black;
+}
+
+.modal-content-right>h5 {
+    color: red;
+    text-align: left;
+}
+
+.modal_title>close {
+    float: right;
+}
+
+.add_to_cart_close {
+    background-color: grey;
+    border: none;
+    padding: 10px;
+    color: white;
+    border-radius: 3px;
+    margin: 10px;
+}
+
+.add_to_cart_add {
+    background-color: #0000ff;
+    border: none;
+    padding: 10px;
+    color: white;
+    border-radius: 3px;
+    margin: 10px;
+}
+
+/* The Close Button */
+.close {
+    color: #aaaaaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.h3 {
+    text-align: center;
+}
+
+.red {
+    color: red;
+    display: inline;
+}
+
+.buytablebutton {
+    background-image: linear-gradient(to right, #3fcaff 0%, #a4ffb0 100%);
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
+}
+
+.signupsend {
+    background-image: linear-gradient(to right, #3fcaff 0%, #a4ffb0 51%, #3fcaff 100%);
+    background-size: 200% auto;
+    color: #222222;
+    padding: 10px;
+    position: relative;
+    left: 85%;
+    margin: 10px;
+    border-radius: 5px;
+    border: none;
+}
+
+.individualsignupform>h3,
+.eventsignupform>h3,
+.businesssignupform>h3,
+.radiobuttons>h5 {
+    color: black;
+    text-align: center;
+}
+
+.individualsignupform>div,
+.eventsignupform>div,
+.businesssignupform>div {
+    padding: 4px;
+}
+
+.radiobuttons {
+    text-align: center;
+}
+
+.radiobuttons>* {
+    display: inline-block;
+}
+
+.radiobuttons>h6,
+.radiobuttons>input {
+    display: inline-block;
+    text-align: center;
+}
+
+.individualsignupform,
+.eventsignupform,
+.businesssignupform {
+    text-align: left;
+    color: black;
+    width: 100%;
+    /*height: 80%;*/
+    /*background-color: white;*/
+    /*height: 450px;*/
+    /*align-items: center;*/
+    /*display: flex;*/
+    /*background-color: white;*/
+    /*justify-content: center;*/
+}
+
+.blue {
+    color: blue;
+}
+
+.settings_image_button {
+    background-image: linear-gradient(to right, #3fcaff 0%, #a4ffb0 51%, #3fcaff 100%);
+    background-size: 200% auto;
+    color: #222222;
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
+    font-family: Verdana, Arial, sans-serif;
+    width: 100%;
+}
+
+.settingsbutton {
+    background-image: linear-gradient(to right, #3fcaff 0%, #a4ffb0 51%, #3fcaff 100%);
+    background-size: 200% auto;
+    color: #222222;
+    float: right;
+    margin: 20px;
+    border-radius: 5px;
+    border: none;
+    font-family: Verdana, Arial, sans-serif;
+    padding: 10px 20px 10px 20px;
+}
+
+.settingsh4 {
+    color: black;
+    font-family: Verdana, Arial, sans-serif;
+}
+
+.settings {
+    align-items: center;
+}
+
+.settings_left {
+    padding: 0 5% 0 0;
+}
+
+.settings>* {
+    font-family: Verdana, Arial, sans-serif;
+}
+
+.shipping {
+    box-shadow: 5px 5px 5px 5px #888888;
+    border: 2px;
+}
+
+.shippingh3 {
+    font-family: Verdana, Arial, sans-serif;
+    color: black;
+}
+
+.shipping_left>*,
+.shipping_one_line>*,
+.settings_right>div,
+.settings_right>h3,
+.settings_right>p {
+    padding: 5px;
+    margin: 2px;
+    text-align: left;
+}
+
+.settings_left>div,
+.settings_left>div>* {
+    display: block;
+}
+
+.shipping_right>* {
+    text-align: center;
+}
+
+.shipping_one_line>input,
+.shipping_one_line>select,
+.shipping_one_line>div {
+    display: inline;
+}
+
+.shipping_left>input,
+.shipping_left>button {
+    display: block;
+}
+
+.shipping_right>h6 {
+    color: black;
+}
+
+.shipping_table {
+    display: grid;
+    margin: 20px;
+    grid-gap: 10px;
+    padding: 10px;
+    grid-template-columns: 40% 20% 20% 20%;
+}
+
+.shipping_table_data>img {
+    width: 70px;
+    height: 70px;
+}
+
+.shipping_table_data>h5 {
+    color: black;
+}
+
+.shippingsend {
+    background-image: linear-gradient(to right, #3fcaff 0%, #a4ffb0 51%, #3fcaff 100%);
+    background-size: 200% auto;
+    color: #222222;
+    padding: 10px;
+    position: relative;
+    left: 70%;
+    border-radius: 5px;
+    border: none;
+}
+
+#edit_event,
+#delete_event,
+#edit_business,
+#delete_business {
+    background-image: linear-gradient(to right, #3fcaff 0%, #a4ffb0 51%, #3fcaff 100%);
+    background-size: 200% auto;
+    color: #222222;
+    padding: 20px;
+    border-radius: 5px;
+    border: none;
+    margin: auto auto 5% auto;
+}
+
+.add_event {
+    background-image: linear-gradient(to right, #3fcaff 0%, #a4ffb0 51%, #3fcaff 100%);
+    background-size: 200% auto;
+    color: #222222;
+    padding: 20px;
+    border-radius: 5px;
+    border: none;
+    margin: 5% auto 5% auto;
+}
+
+.round-button {
+    box-sizing: border-box;
+    display: block;
+    width: 80px;
+    height: 80px;
+    padding-top: 14px;
+    padding-left: 8px;
+    line-height: 20px;
+    border: 6px solid #fff;
+    border-radius: 50%;
+    color: #000000;
+    text-align: center;
+    text-decoration: none;
+    background: linear-gradient(to right, #3fcaff 0%, #a4ffb0 100%);
+    font-size: 20px;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+
+.round-button:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+    box-shadow: 0px 0px 10px rgba(255, 255, 100, 1);
+    text-shadow: 0px 0px 10px rgba(255, 255, 100, 1);
+}
+
+.activetab {
+    color: rgb(0, 153, 255);
+}
