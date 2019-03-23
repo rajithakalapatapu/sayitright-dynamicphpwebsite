@@ -1012,3 +1012,45 @@ textarea {
 .blog_entry_content {
     text-align: left;
 }
+
+.post_navigation {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    margin-top: 5%;
+    margin-left: auto;
+}
+
+.prev_post {
+    text-align: left;
+}
+
+.next_post {
+    text-align: right;
+}
+
+.post_navigation_link {
+    font-weight: bold;
+    font-size: 130%;
+}
+
+.post_navigation_link:link {
+  text-decoration: none;
+}
+
+.post_navigation_link:visited {
+  text-decoration: none;
+}
+
+.post_navigation_link:hover {
+  text-decoration: underline;
+}
+
+.post_navigation_link:active {
+  text-decoration: underline;
+}
+
+.comments_count {
+    font-weight: bolder;
+    font-color: black;
+    font-size: 120%;
+}
