@@ -9,6 +9,7 @@
 	<div class="blog_entry_meta">
 		<div class="blog_entry_date">
 			<?php the_date(); ?>
+			<img width=24 height=24 src="<?php echo get_site_url();?>/imgsay/calendar-alt-regular.png" />
 		</div>
 		<div class="blog_entry_author">
 			<a href="#"><?php the_author(); ?></a>
