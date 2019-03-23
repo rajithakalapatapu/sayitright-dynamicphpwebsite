@@ -32,6 +32,11 @@ body {
     .loginsend {
         width: 100%;
     }
+
+    .entry_comment_grid {
+        display: grid;
+        grid-template-columns: repeat(1, 1fr);
+    }
 }
 
 /* Small devices (portrait tablets and large phones, 600px and up) */
@@ -61,6 +66,10 @@ body {
         grid-column-gap: 0px;
     }
 
+    .entry_comment_grid {
+        display: grid;
+        grid-template-columns: repeat(1, 1fr);
+    }
 }
 
 /* Medium devices (landscape tablets, 768px and up) */
@@ -88,6 +97,10 @@ body {
         grid-column-gap: 0px;
     }
 
+    .entry_comment_grid {
+        display: grid;
+        grid-template-columns: repeat(1, 1fr);
+    }
 }
 
 /* Large devices (laptops/desktops, 992px and up) */
@@ -116,6 +129,10 @@ body {
         grid-column-gap: 0px;
     }
 
+    .entry_comment_grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+    }
 }
 
 .homepageleft img {
@@ -1048,9 +1065,11 @@ textarea {
 .post_navigation_link:active {
   text-decoration: underline;
 }
+
 .comments {
     margin-top: 3%;
 }
+
 .comments_count {
     font-weight: bolder;
     font-color: black;
@@ -1078,4 +1097,28 @@ textarea {
 .comment-reply {
     margin: auto 10% auto 10%;
     text-align: right;
+}
+
+.enter_comment_submit {
+    background-image: linear-gradient(to right, #3fcaff 0%, #a4ffb0 51%, #3fcaff 100%);
+    background-size: 200% auto;
+    color: #ffffff;
+    padding: 15px;
+    border-radius: 5px;
+    border: none;
+    font-size: 1.2em;
+    font-family: Verdana, Arial, sans-serif;
+}
+
+.enter_comment_author,
+.enter_comment_email,
+.enter_comment_subject,
+.enter_comment_message {
+    text-align: left;
+}
+
+.entry_comment {
+    width: 80%;
+    text-align: center;
+    margin: auto 20% auto 20%;
 }

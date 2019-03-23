@@ -12,6 +12,7 @@
 		</div>
 		<div class="blog_entry_author">
 			<a href="#"><?php the_author(); ?></a>
+			<?php echo get_avatar( get_the_author_meta( 'ID' ), 24 ); ?>
 		</div>
 	</div>
 
@@ -57,14 +58,52 @@
 		<span class="comments_count">
 			<?php comments_number('No comments', '1 Comment', '% Comments'); ?>
 		</span>
-		<?php comments_template(); ?>
 		<div class="comments_list">
-
+			<?php comments_template(); ?>
 			<?php
-			comment_form();
+
+			// print("<div class="contactusleft">");
+			$args = array (
+				'label_submit' => __( 'Post Comment', 'textdomain' ),
+				'comment_field' => '',
+				'comment_notes_before' => '',
+				'comment_notes_after' => '',
+				'class_submit' => 'enter_comment_submit',
+				'class_form' => 'enter_comment_form',
+				'fields' => apply_filters('comment_form_default_fields',
+					array(
+					'author' => '
+					<div class="entry_comment">
+					<div class="entry_comment_grid">
+					<div class="enter_comment_author">
+                        <input type="text" name="fname" value="Enter Name">
+                    </div>
+					',
+					'message' => '
+					<div class="enter_comment_message">
+                        <input type="text" name="message" value="Message">
+                    </div>
+                    </div>
+					',
+					'cookies' => '
+					',
+					'email' => '
+					<div class="enter_comment_email">
+                        <input type="text" name="email" value="Enter email address">
+                    </div>
+					',
+					'subject' => '
+					<div class="enter_comment_subject">
+                        <input type="text" name="subject" value="Subject">
+                    </div>
+                    </div>
+					',
+					)
+				)
+			);
+			// print("</div>");
+			comment_form($args);
 			?>
-
-
 		</div>
 
 	</div>
