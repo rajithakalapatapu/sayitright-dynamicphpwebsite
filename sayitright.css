@@ -1048,9 +1048,34 @@ textarea {
 .post_navigation_link:active {
   text-decoration: underline;
 }
-
+.comments {
+    margin-top: 3%;
+}
 .comments_count {
     font-weight: bolder;
     font-color: black;
     font-size: 120%;
+}
+
+.comment-author,
+.comment-meta,
+.comment-text {
+    margin: auto 10% auto 10%;
+    text-align: left;
+}
+
+.comment-author {
+    font-size: 110%;
+    font-weight: bold;
+}
+
+.comment-meta {
+    font-size: 80%;
+    font-weight: lighter;
+    color: #777777;
+}
+
+.comment-reply {
+    margin: auto 10% auto 10%;
+    text-align: right;
 }
