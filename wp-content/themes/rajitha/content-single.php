@@ -4,18 +4,12 @@
 	<h2 id="breadcrumbh4">Blog</h2>
 </div>
 
-
-
 <div class="blog-post">
 	<h1 class="blog-post-title black_text"><?php the_title(); ?></h1>
 	<p class="blog-post-meta"><?php the_date(); ?> by <a href="#"><?php the_author(); ?></a></p>
 	<?php the_content(); ?>
+</div>
 
-	<span class="post-comments">
-		<?php comments_popup_link('No comments', '1 Comment', '% Comments'); ?>
-	</span>
-
-</div><!-- /.blog-post -->
 <div class="navigation">
 	<div class="prev_post">
 		<?php
@@ -32,8 +26,10 @@
 		<?php endif; ?>
 	</div>
 </div>
+
 <div class="comment list">
-	<?php
-		$comments = get_comments());
-	?>
+	<span class="post-comments">
+		<?php comments_popup_link('No comments', '1 Comment', '% Comments'); ?>
+	</span>
+	<?php comments_template(); ?>
 </div>
