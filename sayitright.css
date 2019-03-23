@@ -989,3 +989,26 @@ textarea {
 .activetab {
     color: rgb(0, 153, 255);
 }
+
+.blog_entry {
+    margin: auto 10% auto 10%;
+    padding-top: 5%;
+    width: 80%;
+}
+
+.blog_entry_title {
+    text-align: left;
+    font-size: 200%;
+    font-weight: bolder;
+}
+
+.blog_entry_meta {
+    float: left;
+    margin: 1% 0 4% 4%;
+    text-align: right;
+    padding-right: 2%;
+}
+
+.blog_entry_content {
+    text-align: left;
+}

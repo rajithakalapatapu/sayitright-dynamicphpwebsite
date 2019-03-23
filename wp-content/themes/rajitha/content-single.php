@@ -4,10 +4,26 @@
 	<h2 id="breadcrumbh4">Blog</h2>
 </div>
 
-<div class="blog-post">
-	<h1 class="blog-post-title black_text"><?php the_title(); ?></h1>
-	<p class="blog-post-meta"><?php the_date(); ?> by <a href="#"><?php the_author(); ?></a></p>
-	<?php the_content(); ?>
+<div class="blog_entry">
+
+	<div class="blog_entry_meta">
+		<div class="blog_entry_date">
+			<?php the_date(); ?>
+		</div>
+		<div class="blog_entry_author">
+			<a href="#"><?php the_author(); ?></a>
+		</div>
+	</div>
+
+	<div class="blog_entry_text">
+		<div class="blog_entry_title black_text">
+			<?php the_title(); ?>
+
+		</div>
+		<div class="blog_entry_content">
+			<?php the_content(); ?>
+		</div>
+	</div>
 </div>
 
 <div class="navigation">
@@ -36,13 +52,13 @@
 <?php
 $comments_args = array(
         // Change the title of send button
-        'label_submit' => __( 'Send', 'textdomain' ),
+	'label_submit' => __( 'Send', 'textdomain' ),
         // Change the title of the reply section
-        'title_reply' => __( 'Write a Reply or Comment', 'textdomain' ),
+	'title_reply' => __( 'Write a Reply or Comment', 'textdomain' ),
         // Remove "Text or HTML to be displayed after the set of comment fields".
-        'comment_notes_after' => '',
+	'comment_notes_after' => '',
         // Redefine your own textarea (the comment body).
-        'comment_field' => '<p class="comment-form-comment"><label for="comment">' . _x( 'Comment', 'noun' ) . '</label><br /><textarea id="comment" name="comment" aria-required="true"></textarea></p>',
+	'comment_field' => '<p class="comment-form-comment"><label for="comment">' . _x( 'Comment', 'noun' ) . '</label><br /><textarea id="comment" name="comment" aria-required="true"></textarea></p>',
 );
 comment_form( $comments_args );
 ?>
