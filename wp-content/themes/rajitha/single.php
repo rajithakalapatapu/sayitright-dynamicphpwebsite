@@ -1,7 +1,7 @@
 <?php get_header(); ?>
 
-<div class="row">
-	<div class="col-sm-12">
+<div class="single_entry_row">
+	<div class="single_entry_col">
 
 		<?php
 		if ( have_posts() ) : while ( have_posts() ) : the_post();
