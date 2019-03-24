@@ -246,9 +246,13 @@ h5 {
 }
 
 #wrapper {
-    margin: 10% 10% 10% 10%;
+    margin: auto 10% auto 10%;
     width: 80%;
     text-align: center;
+}
+
+.margin10 {
+    margin: 10% 10% 10% 10%;
 }
 
 .bkgnd {

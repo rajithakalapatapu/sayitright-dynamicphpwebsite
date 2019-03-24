@@ -6,7 +6,7 @@
     <link href='https://fonts.googleapis.com/css?family=Rajdhani' rel='stylesheet'>
 </head>
 
-<body>
+<body id="wrapper">
     <nav>
         <div class="nav_left">
             <a href="<?php echo get_site_url();?>/HomePage.html">
