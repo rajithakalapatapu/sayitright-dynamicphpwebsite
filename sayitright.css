@@ -1044,10 +1044,12 @@ textarea {
     text-align: left;
     font-size: 200%;
     font-weight: bolder;
+    font-family: Verdana, Arial, sans-serif;
 }
 
 .blog_entry_content {
     text-align: left;
+    font-family: Verdana, Arial, sans-serif;
 }
 
 .post_navigation {
