@@ -922,12 +922,17 @@ textarea {
 
 .shipping_left>*,
 .shipping_one_line>*,
-.settings_right>div,
 .settings_right>h3,
 .settings_right>p {
     padding: 5px;
     margin: 2px;
     text-align: left;
+}
+.settings_form>div,
+.settings_form>p{
+    text-align: left;
+    padding: 5px;
+    margin: 2px;
 }
 
 .settings_left>div,
