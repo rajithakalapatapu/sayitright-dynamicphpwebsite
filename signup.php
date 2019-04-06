@@ -9,6 +9,9 @@
 <?php
 $db_insert_status = "";
 $redirect_link = "";
+$individual_signing_up = false;
+$event_signing_up = false;
+$business_signing_up = false;
 $individual_signup = array(
     "ind_fname" => "",
     "ind_lname" => "",
@@ -35,130 +38,154 @@ function test_input($data)
 }
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    if (empty($_POST["ind_fname"])) {
-        $individual_signup["ind_fnameErr"] = "First name required";
-    } else {
-        $individual_signup["ind_fname"] = test_input($_POST["ind_fname"]);
-        if (!preg_match("/^[a-zA-Z ]*$/", $individual_signup["ind_fname"])) {
-            $individual_signup["ind_fnameErr"] = "Only letters and white space allowed";
-        }
-    }
-
-    if (empty($_POST["ind_lname"])) {
-        $individual_signup["ind_lnameErr"] = "Last name required";
-
-    } else {
-        $individual_signup["ind_lname"] = test_input($_POST["ind_lname"]);
-        if (!preg_match("/^[a-zA-Z]*$/", $individual_signup["ind_lname"])) {
-            $individual_signup["ind_lnameErr"] = "Only letters and white space allowed";
+    if ($_POST["ind_form"] == "individual") {
+        $individual_signing_up = true;
+        if (empty($_POST["ind_fname"])) {
+            $individual_signup["ind_fnameErr"] = "First name required";
+        } else {
+            $individual_signup["ind_fname"] = test_input($_POST["ind_fname"]);
+            if (!preg_match("/^[a-zA-Z ]*$/", $individual_signup["ind_fname"])) {
+                $individual_signup["ind_fnameErr"] = "Only letters and white space allowed";
+            }
         }
 
-    }
-    if (empty($_POST["ind_work"])) {
-        $individual_signup["ind_workErr"] = "Your Work Place is needed";
-    } else {
-        $individual_signup["ind_work"] = test_input($_POST["ind_work"]);
+        if (empty($_POST["ind_lname"])) {
+            $individual_signup["ind_lnameErr"] = "Last name required";
+
+        } else {
+            $individual_signup["ind_lname"] = test_input($_POST["ind_lname"]);
+            if (!preg_match("/^[a-zA-Z]*$/", $individual_signup["ind_lname"])) {
+                $individual_signup["ind_lnameErr"] = "Only letters and white space allowed";
+            }
+
+        }
+        if (empty($_POST["ind_work"])) {
+            $individual_signup["ind_workErr"] = "Your Work Place is needed";
+        } else {
+            $individual_signup["ind_work"] = test_input($_POST["ind_work"]);
 
 
-    }
-    if (empty($_POST["ind_school"])) {
-        $individual_signup["ind_schoolErr"] = "Enter your School name";
-    } else {
-        $individual_signup["ind_school"] = test_input($_POST["ind_school"]);
-        if (!preg_match("/^[a-zA-Z]*$/", $individual_signup["ind_school"])) {
-            $individual_signup["ind_schoolErr"] = "Please enter a valid school name";
         }
-    }
-    if (empty($_POST["ind_email"])) {
-        $individual_signup["ind_emailErr"] = "Enter email id";
-    } else {
-        $individual_signup['ind_email'] = test_input($_POST['ind_email']);
-        if (!filter_var($individual_signup["ind_email"], FILTER_VALIDATE_EMAIL)) {
-            $individual_signup["ind_emailErr"] = "Invalid email entered";
+        if (empty($_POST["ind_school"])) {
+            $individual_signup["ind_schoolErr"] = "Enter your School name";
+        } else {
+            $individual_signup["ind_school"] = test_input($_POST["ind_school"]);
+            if (!preg_match("/^[a-zA-Z]*$/", $individual_signup["ind_school"])) {
+                $individual_signup["ind_schoolErr"] = "Please enter a valid school name";
+            }
         }
-    }
-
-    if (empty($_POST["ind_password"])) {
-        $individual_signup["ind_passwordErr"] = "Please enter password";
-    } else {
-        $individual_signup['ind_password'] = test_input($_POST['ind_password']);
-    }
-
-    if (empty($_POST["event_fname"])) {
-        $event_signup["event_fnameErr"] = "Enter your name";
-    } else {
-        $event_signup["event_fname"] = test_input($_POST["event_fname"]);
-        if (!preg_match("/^[a-zA-Z]*$/", $event_signup["event_fname"])) {
-            $event_signup["event_fnameErr"] = "Invalid Name";
-        }
-    }
-    if (empty($_POST["event_lname"])) {
-        $event_signup["event_lnameErr"] = "Enter lastname";
-    } else {
-        $event_signup["event_lname"] = test_input($_POST["event_lname"]);
-        if (!preg_match("/^[a-zA-Z]*$/", $event_signup["event_lname"])) {
-            $event_signup["event_lnameErr"] = "Lastname is required";
-        }
-    }
-    if (empty($_POST["event_email"])) {
-        $event_signup["event_emailErr"] = "Enter valid email id";
-    } else {
-        $event_signup["event_email"] = test_input($_POST["event_email"]);
-        if (!filter_var($event_signup["event_email"], FILTER_VALIDATE_EMAIL)) {
-            $event_signup["event_emailErr"] = "Invalid email id";
-        }
-    }
-    if (empty($_POST["event_password"])) {
-        $event_signup["event_passwordErr"] = "Enter password";
-    } else {
-        $event_signup["event_password"] = test_input($event_signup["event_password"]);
-    }
-    if (empty($business_signup["busi_lname"])) {
-        $business_signup["busi_lnameErr"] = "Enter your last name";
-    } else {
-        $business_signup["busi_lname"] = test_input($_POST["busi_lname"]);
-        if (!preg_match("/^[a-zA-Z]*$/", $business_signup["busi_lname"])) {
-            $business_signup["busi_lnameErr"] = "Last name required";
+        if (empty($_POST["ind_email"])) {
+            $individual_signup["ind_emailErr"] = "Enter email id";
+        } else {
+            $individual_signup['ind_email'] = test_input($_POST['ind_email']);
+            if (!filter_var($individual_signup["ind_email"], FILTER_VALIDATE_EMAIL)) {
+                $individual_signup["ind_emailErr"] = "Invalid email entered";
+            }
         }
 
-    }
-    if (empty($_POST["busi_email"])) {
-        $business_signup["busi_emailErr"] = "Enter email id";
+        if (empty($_POST["ind_password"])) {
+            $individual_signup["ind_passwordErr"] = "Please enter password";
+        } else {
+            $individual_signup['ind_password'] = test_input($_POST['ind_password']);
+        }
+    } else if ($_POST["event_form"] == "event") {
+        $event_signing_up = true;
+        if (empty($_POST["event_fname"])) {
+            $event_signup["event_fnameErr"] = "Enter your name";
+        } else {
+            $event_signup["event_fname"] = test_input($_POST["event_fname"]);
+            if (!preg_match("/^[a-zA-Z]*$/", $event_signup["event_fname"])) {
+                $event_signup["event_fnameErr"] = "Invalid Name";
+            }
+        }
+        if (empty($_POST["event_lname"])) {
+            $event_signup["event_lnameErr"] = "Enter lastname";
+        } else {
+            $event_signup["event_lname"] = test_input($_POST["event_lname"]);
+            if (!preg_match("/^[a-zA-Z]*$/", $event_signup["event_lname"])) {
+                $event_signup["event_lnameErr"] = "Lastname is required";
+            }
+        }
+        if (empty($_POST["event_email"])) {
+            $event_signup["event_emailErr"] = "Enter valid email id";
+        } else {
+            $event_signup["event_email"] = test_input($_POST["event_email"]);
+            if (!filter_var($event_signup["event_email"], FILTER_VALIDATE_EMAIL)) {
+                $event_signup["event_emailErr"] = "Invalid email id";
+            }
+        }
+        if (empty($_POST["event_password"])) {
+            $event_signup["event_passwordErr"] = "Enter password";
+        } else {
+            $event_signup["event_password"] = test_input($event_signup["event_password"]);
+        }
+    } else if ($_POST["busi_form"] == "business") {
+        $business_signing_up = true;
+        if (empty($business_signup["busi_lname"])) {
+            $business_signup["busi_lnameErr"] = "Enter your last name";
+        } else {
+            $business_signup["busi_lname"] = test_input($_POST["busi_lname"]);
+            if (!preg_match("/^[a-zA-Z]*$/", $business_signup["busi_lname"])) {
+                $business_signup["busi_lnameErr"] = "Last name required";
+            }
 
-    } else {
-        $business_signup["busi_email"] = test_input($_POST["busi_email"]);
-        if (!filter_var($business_signup["busi_email"], FILTER_VALIDATE_EMAIL)) {
-            $business_signup["busi_emailErr"] = "Invalid email id";
+        }
+        if (empty($_POST["busi_email"])) {
+            $business_signup["busi_emailErr"] = "Enter email id";
+
+        } else {
+            $business_signup["busi_email"] = test_input($_POST["busi_email"]);
+            if (!filter_var($business_signup["busi_email"], FILTER_VALIDATE_EMAIL)) {
+                $business_signup["busi_emailErr"] = "Invalid email id";
+            }
+        }
+        if (empty($_POST["busi_password"])) {
+            $business_signup["busi_passwordErr"] = "Enter password";
+
         }
     }
-    if (empty($_POST["busi_password"])) {
-        $business_signup["busi_passwordErr"] = "Enter password";
-
-    }
-
-    print_r($individual_signup);
-    print_r($event_signup);
-    print_r($business_signup);
     try {
         $connString = "mysql:host=localhost;dbname=rajithak_project1";
         $user = "rk";
         $pass = "Rklappy@2018";
         $pdo = new PDO($connString, $user, $pass);
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        $sql = "INSERT INTO individual_users (`first_name`, `last_name`, `place_of_work`, `password`, `school`, `email`) VALUES ('" . $individual_signup["ind_fname"] . "','" .
-            $individual_signup["ind_lname"] . "','" .
-            $individual_signup["ind_work"] . "','" .
-            $individual_signup["ind_password"] . "','" .
-            $individual_signup["ind_school"] . "','" .
-            $individual_signup["ind_email"] .
-            "');";
-//        $sql = "INSERT INTO event_users('" . $event_signup["event_fname"] . "',''" . $event_signup["event_lname"] . "','" . $event_signup["event_password"] . "','" . $event_signup["event_email"]."');";
+
+        if ($individual_signing_up) {
+
+            $sql = "INSERT INTO individual_users (`first_name`, `last_name`, `place_of_work`, `password`, `school`, `email`) VALUES ('" . $individual_signup["ind_fname"] . "','" .
+                $individual_signup["ind_lname"] . "','" .
+                $individual_signup["ind_work"] . "','" .
+                $individual_signup["ind_password"] . "','" .
+                $individual_signup["ind_school"] . "','" .
+                $individual_signup["ind_email"] .
+                "');";
+
+        } else if ($event_signing_up) {
+
+            $sql = "INSERT INTO event_users VALUES ('" . $event_signup["event_fname"] . "',''" .
+                $event_signup["event_lname"] . "','" .
+                $event_signup["event_password"] . "','" .
+                $event_signup["event_email"].
+                "');";
+
+        } else if ($business_signing_up) {
+
+        }
+
         $result = $pdo->query($sql);
         if ($result) {
-            $db_insert_status = "Message sent successfully!";
-            $redirect_link = "<a href=\"individuallogin.html\">Click here to go to your home page</a>";
+            $db_insert_status = "Account created successfully!";
+            if ($individual_signing_up) {
+                $redirect_link = "<a href=\"individuallogin.html\">Click here to go to your home page</a>";
+            } else if ($event_signing_up) {
+                $redirect_link = "<a href=\"eventlogin.html\">Click here to go to your home page</a>";
+            } else if ($business_signing_up) {
+                $redirect_link = "<a href=\"businesslogin.html\">Click here to go to your home page</a>";
+
+            }
         } else {
-            $db_insert_status = "Failed to send message - please try again!";
+            $db_insert_status = "Failed to create account - please try again!";
         }
         $pdo = null;
 
@@ -197,26 +224,26 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </div>
     <div class="signup margin10">
 
-            <div class="signupform" id="signupform">
+        <div class="signupform" id="signupform">
+            <div>
+                <h2> Select the type of user</h2>
+            </div>
+            <div class="signupgrid" id="signupgrid">
                 <div>
-                    <h2> Select the type of user</h2>
-                </div>
-                <div class="signupgrid" id="signupgrid">
-                    <div>
-                        <p class="individualsend" onclick="individualsignup()">INDIVIDUAL</p>
-                    </div>
-                    <div>
-                        <p class="eventsend" onclick="eventsignup()">EVENT</p>
-                    </div>
-                    <div>
-                        <p class="businesssend" onclick="businesssignup()">BUSINESS</p>
-                    </div>
+                    <p class="individualsend" onclick="individualsignup()">INDIVIDUAL</p>
                 </div>
                 <div>
-                    <div class="successful_form_submit"> <?php echo $db_insert_status; ?> </div>
-                    <p> <?php echo $redirect_link; ?> </p>
+                    <p class="eventsend" onclick="eventsignup()">EVENT</p>
                 </div>
-                <form method="POST" action="<?php echo htmlspecialchars($_SERVER[PHP_SELF]); ?>">
+                <div>
+                    <p class="businesssend" onclick="businesssignup()">BUSINESS</p>
+                </div>
+            </div>
+            <div>
+                <p> <?php echo $db_insert_status; ?> </p>
+                <p> <?php echo $redirect_link; ?> </p>
+            </div>
+            <form method="POST" action="<?php echo htmlspecialchars($_SERVER[PHP_SELF]); ?>">
                 <div class="individualsignupform" id="individualsignupform" style="display: none">
                     <h3> Welcome to the individual registration</h3><br>
                     <div>
@@ -243,10 +270,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         <input type="text" name="ind_password" placeholder="Enter password" required>
                         <span class="error"> *<?php echo $individual_signup["ind_passwordErr"] ?></span>
                     </div>
+                    <input type="text" id="ind_form" name="ind_form" placeholder="" style="display:none">
                     <input type="submit" value="SEND" class="signupsend">
                 </div>
-                </form>
-                <form method="POST" action="<?php echo htmlspecialchars($_SERVER[PHP_SELF]); ?>">
+            </form>
+            <form method="POST" action="<?php echo htmlspecialchars($_SERVER[PHP_SELF]); ?>">
                 <div class="eventsignupform" id="eventsignupform" style="display: none">
                     <h3> Welcome to the event log</h3><br>
                     <div>
@@ -265,10 +293,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         <input type="text" name="event_password" placeholder="Enter password" required>
                         <span class="" error"> * <?php echo $event_signup["event_passwordErr"]; ?> </span>
                     </div>
+                    <input type="text" name="event_form" placeholder="" style="display:none">
                     <input type="submit" value="SEND" class="signupsend">
                 </div>
-                </form>
-                <form method="POST" action="<?php echo htmlspecialchars($_SERVER[PHP_SELF]); ?>">
+            </form>
+            <form method="POST" action="<?php echo htmlspecialchars($_SERVER[PHP_SELF]); ?>">
                 <div class="businesssignupform" id="businesssignupform" style="display: none">
                     <h3> Welcome to business records</h3><br>
                     <div class="radiobuttons">
@@ -289,29 +318,44 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         <input type="text" name="busi_password" placeholder="Enter password" required>
                         <span class="error"> * <?php echo $business_signup["busi_passwordErr"] ?></span>
                     </div>
+                    <input type="text" name="busi_form" placeholder="" style="display:none">
                     <input type="submit" value="SEND" class="signupsend">
                 </div>
-                </form>
-            </div>
+            </form>
+        </div>
     </div>
 </div>
 <script type="text/javascript">
+    function set_form_element_to_value(element_id, value) {
+        document.getElementById(element_id).value = value;
+    }
+
     function individualsignup() {
         document.getElementById("individualsignupform").style.display = "block";
         document.getElementById("eventsignupform").style.display = "none";
         document.getElementById("businesssignupform").style.display = "none";
+        set_form_element_to_value("ind_form", "individual");
+        set_form_element_to_value("event_form", "");
+        set_form_element_to_value("busi_form", "");
+
     }
 
     function eventsignup() {
         document.getElementById("individualsignupform").style.display = "none";
         document.getElementById("eventsignupform").style.display = "block";
         document.getElementById("businesssignupform").style.display = "none";
+        set_form_element_to_value("ind_form", "");
+        set_form_element_to_value("event_form", "event");
+        set_form_element_to_value("busi_form", "");
     }
 
     function businesssignup() {
         document.getElementById("individualsignupform").style.display = "none";
         document.getElementById("eventsignupform").style.display = "none";
         document.getElementById("businesssignupform").style.display = "block";
+        set_form_element_to_value("ind_form", "");
+        set_form_element_to_value("event_form", "");
+        set_form_element_to_value("busi_form", "business");
     }
 </script>
 <!-- <div id="mymodal" class="modal">
