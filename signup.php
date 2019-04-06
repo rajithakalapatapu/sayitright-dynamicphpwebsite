@@ -38,6 +38,8 @@ $event_signup = array("event_fname" => "",
 $business_signup = array("busi_lname" => "",
     "busi_email" => "",
     "busi_password" => "",
+    "busi_university" => 0,
+    "busi_company" => 0,
     "busi_lnameErr" => "",
     "busi_emailErr" => "",
     "busi_passwordErr" => "");
@@ -134,14 +136,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
     } else if ($_POST["busi_form"] == "business") {
         $business_signing_up = true;
-        if (empty($business_signup["busi_lname"])) {
+        if (empty($_POST["busi_lname"])) {
             $business_signup["busi_lnameErr"] = "Enter your last name";
         } else {
             $business_signup["busi_lname"] = test_input($_POST["busi_lname"]);
             if (!preg_match("/^[a-zA-Z]*$/", $business_signup["busi_lname"])) {
                 $business_signup["busi_lnameErr"] = "Last name required";
             }
-
         }
         if (empty($_POST["busi_email"])) {
             $business_signup["busi_emailErr"] = "Enter email id";
@@ -154,7 +155,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
         if (empty($_POST["busi_password"])) {
             $business_signup["busi_passwordErr"] = "Enter password";
+        } else {
+            $business_signup["busi_password"] = test_input($_POST["busi_password"]);
+        }
 
+        if (isset($_POST['businesstype'])) {
+            if ($_POST['businesstype'] == "University") {
+                $business_signup["busi_university"] = 1;
+                $business_signup["busi_company"] = 0;
+            } else {
+                $business_signup["busi_university"] = 0;
+                $business_signup["busi_company"] = 1;
+            }
         }
     } else {
         echo "STOP! ERROR!!!";
@@ -180,9 +192,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $sql = "INSERT INTO event_users (`first_name`, `last_name`, `password`, `email`) VALUES ('" . $event_signup["event_fname"] . "','" .
                 $event_signup["event_lname"] . "','" .
                 $event_signup["event_password"] . "','" .
-                $event_signup["event_email"].
+                $event_signup["event_email"] .
                 "');";
         } else if ($business_signing_up) {
+            $sql = "INSERT INTO business_users (`name`, `email_id`, `password`, `is_university`, `is_company`) VALUES ('" .
+                $business_signup["busi_lname"] . "','" .
+                $business_signup["busi_email"] . "','" .
+                $business_signup["busi_password"] . "','" .
+                $business_signup["busi_university"] . "','" .
+                $business_signup["busi_company"] .
+                "');";
         }
 
         $result = $pdo->query($sql);
