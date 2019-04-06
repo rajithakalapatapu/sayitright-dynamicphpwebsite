@@ -8,14 +8,14 @@
 <body id="wrapper">
 <?php
 $db_insert_status = "";
-
+$redirect_link = "";
 $individual_signup = array(
     "ind_fname" => "",
     "ind_lname" => "",
     "ind_work" => "",
     "ind_school" => "",
     "ind_email" => "",
-    "ind_passowrd" => "",
+    "ind_password" => "",
     "ind_fnameErr" => "",
     "ind_lnameErr" => "",
     "ind_workErr" => "",
@@ -156,6 +156,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $result = $pdo->query($sql);
         if ($result) {
             $db_insert_status = "Message sent successfully!";
+            $redirect_link = "<a href=\"individuallogin.html\">Click here to go to your home page</a>";
         } else {
             $db_insert_status = "Failed to send message - please try again!";
         }
@@ -195,7 +196,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <h2 id="breadcrumbh4">SIGN UP</h2>
     </div>
     <div class="signup margin10">
-        <form method="POST" action="<?php echo htmlspecialchars($_SERVER[PHP_SELF]); ?>">
+
             <div class="signupform" id="signupform">
                 <div>
                     <h2> Select the type of user</h2>
@@ -211,7 +212,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         <p class="businesssend" onclick="businesssignup()">BUSINESS</p>
                     </div>
                 </div>
-                <div class="individualsignupform" id="individualsignupform" style="display: block">
+                <div>
+                    <div class="successful_form_submit"> <?php echo $db_insert_status; ?> </div>
+                    <p> <?php echo $redirect_link; ?> </p>
+                </div>
+                <form method="POST" action="<?php echo htmlspecialchars($_SERVER[PHP_SELF]); ?>">
+                <div class="individualsignupform" id="individualsignupform" style="display: none">
                     <h3> Welcome to the individual registration</h3><br>
                     <div>
                         <input type="text" name="ind_fname" placeholder="Enter your name" required>
@@ -239,6 +245,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     </div>
                     <input type="submit" value="SEND" class="signupsend">
                 </div>
+                </form>
+                <form method="POST" action="<?php echo htmlspecialchars($_SERVER[PHP_SELF]); ?>">
                 <div class="eventsignupform" id="eventsignupform" style="display: none">
                     <h3> Welcome to the event log</h3><br>
                     <div>
@@ -259,6 +267,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     </div>
                     <input type="submit" value="SEND" class="signupsend">
                 </div>
+                </form>
+                <form method="POST" action="<?php echo htmlspecialchars($_SERVER[PHP_SELF]); ?>">
                 <div class="businesssignupform" id="businesssignupform" style="display: none">
                     <h3> Welcome to business records</h3><br>
                     <div class="radiobuttons">
@@ -281,9 +291,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     </div>
                     <input type="submit" value="SEND" class="signupsend">
                 </div>
+                </form>
             </div>
-        </form>
-        <div class="successful_form_submit"> <?php echo $db_insert_status; ?> </div>
     </div>
 </div>
 <script type="text/javascript">
