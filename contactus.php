@@ -22,8 +22,7 @@ function test_input($data)
     return $data;
 }
 
-if ($_SERVER["REQUEST_METHOD"] == "POST")
-{
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (empty($_POST["fname"])) {
         $fnameErr = "First Name is required";
     } else {
@@ -112,7 +111,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
         <h2 id="breadcrumbh4">CONTACT US</h2>
     </div>
     <div class="contactus margin10">
-        <form method="POST" action="<?php echo htmlspecialchars($_SERVER[PHP_SELF]); ?>">
+        <form name="contactus_form" method="POST" onsubmit="return myFunction()"
+              action="<?php echo htmlspecialchars($_SERVER[PHP_SELF]); ?>">
             <div class="contactusleft">
                 <div>
                     <input type="text" name="fname" placeholder="Enter your name">
@@ -132,6 +132,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
                     <textarea rows="4" cols="50" name="Message" placeholder="Enter Message"></textarea>
                     <span class="error"> * <?php echo $MessageErr; ?></span>
                 </div>
+                <!--                <input id="contactus_button" type=""text">-->
                 <button class="contactussend" id="button">SEND MESSAGE</button>
             </div>
         </form>
@@ -147,7 +148,39 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
     <p class="white"> | This web is made with &#9825;</p>
     <p class="blue">by DiazApps </p>
 </div>
+<script>
+    function validate_input(form_name, input_name) {
+        var x = document.forms[form_name][input_name].value;
+        if (x == "") {
+            alert("Name must be filled out");
+            return false;
+        }
+    }
 
+    function validate_phone(form_name, input_name) {
+        var x = document.forms[form_name][input_name].value;
+        var regex = "\d{9}";
+        if (x == "") {//} || x.match(regex) == null) {
+            alert("Phone number must be filled out with numbers");
+            return false;
+        }
+    }
+
+    function myFunction() {
+        var valid_fname = validate_input("contactus_form", "fname");
+        var valid_lname = validate_input("contactus_form", "lname");
+        var valid_phone = validate_phone("contactus_form", "phone");
+        return valid_fname && valid_lname && valid_phone;
+
+        /*
+        var x = document.forms["contactus_form"]["fname"].value;
+        if (x == "") {
+            alert("Name must be filled out");
+            return false;
+        } */
+
+    }
+</script>
 
 </body>
 
