@@ -32,21 +32,21 @@
             <h2 id="breadcrumbh4">CONTACT US</h2>
         </div>
         <div class="contactus margin10">
-            <form action="">
+            <form action="contactus.php" method="POST">
                 <div class="contactusleft">
                     <div>
-                        <input type="text" name="fname" value="Enter your name">
+                        <input type="text" name="fname" placeholder="Enter your name" required="">
                     </div>
                     <div>
-                        <input type="text" name="lname" value="Enter last name">
+                        <input type="text" name="lname" placeholder="Enter last name" required="">
                     </div>
                     <div>
-                        <input type="text" name="phone" value="Telephone">
+                        <input type="phone" name="phone" placeholder="Telephone" required="">
                     </div>
                 </div>
                 <div class="contactusright">
                     <div>
-                        <textarea rows="4" cols="50" name="Message" value="">Enter Message</textarea>
+                        <textarea rows="4" cols="50" name="Message" placeholder="Enter Message" required=""></textarea>
                     </div>
                     <button class="contactussend" id="button">SEND MESSAGE</button>
                 </div>

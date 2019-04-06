@@ -9,19 +9,19 @@
 <body id="wrapper">
     <nav>
         <div class="nav_left">
-            <a href="<?php echo get_site_url();?>/HomePage.html">
+            <a href="<?php echo get_site_url();?>/HomePage.php">
                 <img src="<?php echo get_site_url();?>/imgsay/logo.png">
             </a>
         </div>
         <div class="nav_right">
             <ul>
-                <li><a href="<?php echo get_site_url();?>/HomePage.html">Home</a></li>
-                <li><a href="<?php echo get_site_url();?>/AboutUs.html">About US</a></li>
+                <li><a href="<?php echo get_site_url();?>/HomePage.php">Home</a></li>
+                <li><a href="<?php echo get_site_url();?>/AboutUs.php">About US</a></li>
                 <li><a href="<?php echo get_site_url();?>/index.php" class="activetab">Blog</a></li>
-                <li><a href="<?php echo get_site_url();?>/buyfromus.html">Buy From US</a></li>
-                <li><a href="<?php echo get_site_url();?>/contactus.html">Contact US</a></li>
-                <li><a href="<?php echo get_site_url();?>/signup.html">Sign Up</a></li>
-                <li><a href="<?php echo get_site_url();?>/login.html">Login</a></li>
+                <li><a href="<?php echo get_site_url();?>/buyfromus.php">Buy From US</a></li>
+                <li><a href="<?php echo get_site_url();?>/contactus.php">Contact US</a></li>
+                <li><a href="<?php echo get_site_url();?>/signup.php">Sign Up</a></li>
+                <li><a href="<?php echo get_site_url();?>/login.php">Login</a></li>
             </ul>
         </div>
     </nav>

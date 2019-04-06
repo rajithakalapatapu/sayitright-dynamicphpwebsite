@@ -368,6 +368,11 @@ h5 {
     padding: 20px;
 }
 
+.successful_form_submit {
+    visibility: hidden;
+    display: none;
+}
+
 .contactusleft>div {
     margin: 10px;
     padding-right: 20px;
