@@ -26,8 +26,21 @@ $individual_signup = array(
     "ind_emailErr" => "",
     "ind_passwordErr" => "");
 
-$event_signup = array("event_fname" => "", "event_lname" => "", "event_email" => "", "event_password" => "", "event_fnameErr" => "", "event_lnameErr" => "", "event_emailErr" => "", "event_passwordErr" => "");
-$business_signup = array("busi_lname" => "", "busi_email" => "", "busi_password" => "", "busi_lnameErr" => "", "busi_emailErr" => "", "busi_passwordErr" => "");
+$event_signup = array("event_fname" => "",
+    "event_lname" => "",
+    "event_email" => "",
+    "event_password" => "",
+    "event_fnameErr" => "",
+    "event_lnameErr" => "",
+    "event_emailErr" => "",
+    "event_passwordErr" => "");
+
+$business_signup = array("busi_lname" => "",
+    "busi_email" => "",
+    "busi_password" => "",
+    "busi_lnameErr" => "",
+    "busi_emailErr" => "",
+    "busi_passwordErr" => "");
 
 function test_input($data)
 {
@@ -117,7 +130,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if (empty($_POST["event_password"])) {
             $event_signup["event_passwordErr"] = "Enter password";
         } else {
-            $event_signup["event_password"] = test_input($event_signup["event_password"]);
+            $event_signup["event_password"] = test_input($_POST["event_password"]);
         }
     } else if ($_POST["busi_form"] == "business") {
         $business_signing_up = true;
@@ -143,6 +156,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $business_signup["busi_passwordErr"] = "Enter password";
 
         }
+    } else {
+        echo "STOP! ERROR!!!";
     }
     try {
         $connString = "mysql:host=localhost;dbname=rajithak_project1";
@@ -150,9 +165,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $pass = "Rklappy@2018";
         $pdo = new PDO($connString, $user, $pass);
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $sql = "";
 
         if ($individual_signing_up) {
-
             $sql = "INSERT INTO individual_users (`first_name`, `last_name`, `place_of_work`, `password`, `school`, `email`) VALUES ('" . $individual_signup["ind_fname"] . "','" .
                 $individual_signup["ind_lname"] . "','" .
                 $individual_signup["ind_work"] . "','" .
@@ -162,15 +177,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 "');";
 
         } else if ($event_signing_up) {
-
-            $sql = "INSERT INTO event_users VALUES ('" . $event_signup["event_fname"] . "',''" .
+            $sql = "INSERT INTO event_users (`first_name`, `last_name`, `password`, `email`) VALUES ('" . $event_signup["event_fname"] . "','" .
                 $event_signup["event_lname"] . "','" .
                 $event_signup["event_password"] . "','" .
                 $event_signup["event_email"].
                 "');";
-
         } else if ($business_signing_up) {
-
         }
 
         $result = $pdo->query($sql);
@@ -293,7 +305,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         <input type="text" name="event_password" placeholder="Enter password" required>
                         <span class="" error"> * <?php echo $event_signup["event_passwordErr"]; ?> </span>
                     </div>
-                    <input type="text" name="event_form" placeholder="" style="display:none">
+                    <input type="text" id="event_form" name="event_form" placeholder="" style="display:none">
                     <input type="submit" value="SEND" class="signupsend">
                 </div>
             </form>
@@ -318,7 +330,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         <input type="text" name="busi_password" placeholder="Enter password" required>
                         <span class="error"> * <?php echo $business_signup["busi_passwordErr"] ?></span>
                     </div>
-                    <input type="text" name="busi_form" placeholder="" style="display:none">
+                    <input type="text" id="busi_form" name="busi_form" placeholder="" style="display:none">
                     <input type="submit" value="SEND" class="signupsend">
                 </div>
             </form>
