@@ -44,7 +44,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $indi_result = $pdo->query($indi_sql);
         while ($row = $indi_result->fetch()) {
             if ($row['count'] == 1) {
-                echo '<script>window.location.href = "individuallogin.html";</script>';
+                echo '<script>window.location.href = "individuallogin.php";</script>';
             }
         }
 
@@ -52,7 +52,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $event_result = $pdo->query($event_sql);
         while ($row = $event_result->fetch()) {
             if ($row['count'] == 1) {
-                echo '<script>window.location.href = "eventlogin.html";</script>';
+                echo '<script>window.location.href = "eventlogin.php";</script>';
             }
         }
 
@@ -60,7 +60,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $busi_result = $pdo->query($busi_sql);
         while ($row = $busi_result->fetch()) {
             if ($row['count'] == 1) {
-                echo '<script>window.location.href = "businesslogin.html";</script>';
+                echo '<script>window.location.href = "businesslogin.php";</script>';
             }
         }
 
