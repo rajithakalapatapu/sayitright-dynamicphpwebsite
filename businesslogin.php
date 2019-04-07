@@ -6,6 +6,12 @@
 </head>
 
 <body id="wrapper">
+<script>
+    function delete_business(business_id) {
+        window.location.href = "delete_business.php?business_id=".concat(business_id);
+    }
+</script>
+
 <?php
 // You'd put this code at the top of any "protected" page you create
 
@@ -44,30 +50,40 @@ if (isset($_SESSION['user_type']) && $_SESSION['user_type'] == "business" && iss
                     <th class="table_header">Business name</th>
                     <th class="table_header">Description</th>
                     <th class="table_header">City</th>
-                    <th class="table_header">Type of business</th>
+                    <th class="table_header">Business License Number</th>
                     <th class="table_header">Make changes</th>
                 </tr>
-                <tr>
-                    <td class="table_cell">University of Texas</td>
-                    <td class="table_cell">UTA</td>
-                    <td class="table_cell">Arlington</td>
-                    <td class="table_cell">University</td>
-                    <td class="table_cell"> <button id="edit_business">Edit</button> <button id="delete_business">Delete</button> </td>
-                </tr>
-                <tr>
-                    <td class="table_cell">University of Texas</td>
-                    <td class="table_cell">UTAustin</td>
-                    <td class="table_cell">Austin</td>
-                    <td class="table_cell">University</td>
-                    <td class="table_cell"> <button id="edit_business">Edit</button> <button id="delete_business">Delete</button> </td>
-                </tr>
-                <tr>
-                    <td class="table_cell">Texas Corporation</td>
-                    <td class="table_cell">Corporation of Texas</td>
-                    <td class="table_cell">Dallas</td>
-                    <td class="table_cell">Company</td>
-                    <td class="table_cell"> <button id="edit_business">Edit</button> <button id="delete_business">Delete</button> </td>
-                </tr>
+                <?php
+                try {
+                    $connString = "mysql:host=localhost;dbname=rajithak_project1";
+                    $user = "rk";
+                    $pass = "Rklappy@2018";
+                    $pdo = new PDO($connString, $user, $pass);
+                    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+                    $stmt = "select * from my_businesses where business_created_by='%s'";
+                    $sql = sprintf($stmt, $_SESSION['user_id']);
+                    $result = $pdo->query($sql);
+                    while ($row = $result->fetch()) {
+                        $format = "
+                        <tr>
+                            <td class=\"table_cell\">%s</td>
+                            <td class=\"table_cell\">%s</td>
+                            <td class=\"table_cell\">%s</td>
+                            <td class=\"table_cell\">%s</td>
+                            <td class=\"table_cell\">
+                            <button id=\"edit_business\">Edit</button>
+                            <button id=\"delete_business\" onclick=\"delete_business('%d')\">Delete</button>
+                            </td>
+                        </tr>";
+                        echo sprintf($format, $row['business_name'], $row['business_description'], $row['business_address'], $row['business_license_number'], $row['business_id']);
+
+                    }
+                    $pdo = null;
+
+                } catch (PDOException $e) {
+                    die($e->getMessage());
+                }
+                ?>
             </table>
         </div>
         <button class="add_event" id="button">Add a new business</button>
