@@ -6,6 +6,11 @@
 </head>
 
 <body id="wrapper">
+<script>
+    function delete_event(event_id) {
+        window.location.href = "delete_event.php?event_id=".concat(event_id);
+    }
+</script>
 <?php
 // You'd put this code at the top of any "protected" page you create
 
@@ -47,39 +52,44 @@ if (isset($_SESSION['user_type']) && $_SESSION['user_type'] == "event" && isset(
                 <th class="table_header">City</th>
                 <th class="table_header">Make changes</th>
             </tr>
-            <tr>
-                <td class="table_cell">Oratory</td>
-                <td class="table_cell">is the art of making formal speeches which strongly affect people's feelings and
-                    beliefs
-                </td>
-                <td class="table_cell">25 April<br>2019</td>
-                <td class="table_cell">Boston</td>
-                <td class="table_cell">
-                    <button id="edit_event">Edit</button>
-                    <button id="delete_event">Delete</button>
-                </td>
-            </tr>
-            <tr>
-                <td class="table_cell">Vocalization</td>
-                <td class="table_cell">a sound you use your voice to make it, especially by singing it.</td>
-                <td class="table_cell">25 April<br>2019</td>
-                <td class="table_cell">Texas</td>
-                <td class="table_cell">
-                    <button id="edit_event">Edit</button>
-                    <button id="delete_event">Delete</button>
-                </td>
-            </tr>
-            <tr>
-                <td class="table_cell">Social<br> Communication</td>
-                <td class="table_cell">the formation of a structure of relations inside a group, which provides a basis
-                    for order and patterns<br>relationships for new members
-                </td>
-                <td class="table_cell">25 April<br>2019</td>
-                <td class="table_cell">Detroit</td>
-                <td class="table_cell">
-                    <button id="edit_event">Edit</button>
-                    <button id="delete_event">Delete</button>
-                </td>
+
+            <?php
+            // PDO
+            // select * from events where event_created_by = $_SESSION['user_id'];
+            try {
+                $connString = "mysql:host=localhost;dbname=rajithak_project1";
+                $user = "rk";
+                $pass = "Rklappy@2018";
+                $pdo = new PDO($connString, $user, $pass);
+                $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+                $stmt = "select * from events where event_created_by = '%s';";
+                $sql = sprintf($stmt, $_SESSION['user_id']);
+
+                $result = $pdo->query($sql);
+                while ($row = $result->fetch()) {
+                    $format = "
+                    <tr>
+                    <td class=\"table_cell\">%s</td>
+                    <td class=\"table_cell\">%s</td>
+                    <td class=\"table_cell\">%s</td>
+                    <td class=\"table_cell\">%s</td>
+                    <td class=\"table_cell\">
+                        <button id=\"edit_event\">Edit</button>
+                        <button id=\"delete_event\" onclick=\"delete_event('%d')\">Delete</button>
+                    </td>
+                    </tr>
+                    ";
+
+                    echo sprintf($format, $row['event_type'], $row['event_name'], $row['event_datetime'], $row['event_location'], $row['event_id']);
+                }
+
+                $pdo = null;
+
+            } catch (PDOException $e) {
+                die($e->getMessage());
+            }
+            ?>
         </table>
         <button class="add_event" id="button">Add a new event</button>
     </div>
