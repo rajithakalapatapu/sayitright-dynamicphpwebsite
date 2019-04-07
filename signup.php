@@ -157,6 +157,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $business_signup["busi_passwordErr"] = "Enter password";
         } else {
             $business_signup["busi_password"] = test_input($_POST["busi_password"]);
+            if (!preg_match("/[A-Z]/", $business_signup["busi_password"])) {
+                $business_signup["busi_passwordErr"] = "Atleast one capital letter required";
+            }
         }
 
         if (isset($_POST['businesstype'])) {
