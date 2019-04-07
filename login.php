@@ -20,6 +20,8 @@ function test_input($data)
 }
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    session_start();
+
     if (empty($_POST["email"])) {
         $emailErr = "Enter email ID";
     } else {
@@ -40,28 +42,29 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $pdo = new PDO($connString, $user, $pass);
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-        $indi_sql = "select count(*) as count from individual_users where email='" . $email . "' and password='" . $password . "'";
+        $indi_sql = "select individual_id from individual_users where email='" . $email . "' and password='" . $password . "'";
         $indi_result = $pdo->query($indi_sql);
         while ($row = $indi_result->fetch()) {
-            if ($row['count'] == 1) {
-                echo '<script>window.location.href = "individuallogin.php";</script>';
-            }
+            $_SESSION['user_type'] = "individual";
+            $_SESSION['user_id'] = $row['individual_id'];
+            echo '<script>window.location.href = "individuallogin.php";</script>';
         }
 
-        $event_sql = "select count(*) as count from event_users where email='" . $email . "' and password='" . $password . "'";
+        $event_sql = "select event_user_id from event_users where email='" . $email . "' and password='" . $password . "'";
         $event_result = $pdo->query($event_sql);
         while ($row = $event_result->fetch()) {
-            if ($row['count'] == 1) {
-                echo '<script>window.location.href = "eventlogin.php";</script>';
-            }
+            $_SESSION['user_type'] = "event";
+            $_SESSION['user_id'] = $row['event_user_id'];
+            echo '<script>window.location.href = "eventlogin.php";</script>';
+
         }
 
-        $busi_sql = "select count(*) as count from business_users where email='" . $email . "' and password='" . $password . "'";
+        $busi_sql = "select business_user_id from business_users where email='" . $email . "' and password='" . $password . "'";
         $busi_result = $pdo->query($busi_sql);
         while ($row = $busi_result->fetch()) {
-            if ($row['count'] == 1) {
-                echo '<script>window.location.href = "businesslogin.php";</script>';
-            }
+            $_SESSION['user_type'] = "business";
+            $_SESSION['user_id'] = $row['business_user_id'];
+            echo '<script>window.location.href = "businesslogin.php";</script>';
         }
 
         $pdo = null;

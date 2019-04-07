@@ -6,18 +6,33 @@
 </head>
 
 <body id="wrapper">
+<?php
+// You'd put this code at the top of any "protected" page you create
+
+// Always start this first
+session_start();
+
+if (isset($_SESSION['user_type']) && $_SESSION['user_type'] == "business" && isset($_SESSION['user_id'])) {
+    // Grab user data from the database using the user_id
+    // Let them access the "logged in only" pages
+} else {
+    // Redirect them to the login page
+    echo '<script>window.location.href = "login.php";</script>';
+}
+?>
     <nav>
         <div class="nav_left">
-            <a href="HomePage.html"><img src="imgsay/logo.png"> </a>
+            <a href="HomePage.php"><img src="imgsay/logo.png"> </a>
         </div>
         <div class="nav_right">
             <ul>
-                <li><a href="businesslogin.html" class="activetab">Home</a></li>
-                <li><a href="conferences.html">Conferences</a></li>
-                <li><a href="events.html">Events</a></li>
-                <li><a href="myconferences.html">My Conferences</a></li>
-                <li><a href="myevents.html">My Events</a></li>
-                <li><a href="usersettings.html">Settings</a></li>
+                <li><a href="businesslogin.php" class="activetab">Home</a></li>
+                <li><a href="conferences.php">Conferences</a></li>
+                <li><a href="events.php">Events</a></li>
+                <li><a href="myconferences.php">My Conferences</a></li>
+                <li><a href="myevents.php">My Events</a></li>
+                <li><a href="usersettings.php">Settings</a></li>
+                <li><a href="logout.php">Logout</a></li>
             </ul>
         </div>
     </nav>
