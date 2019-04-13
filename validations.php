@@ -129,4 +129,45 @@ function is_valid_password($user_entered_value)
     return $value;
 }
 
+function is_valid_work_location($user_entered_value)
+{
+    $value = array(
+        "sanitized_value" => "",
+        "is_valid" => true, // assume valid input
+        "validation_failure_message" => ""
+    );
+
+    if (empty($user_entered_value)) {
+        $value["validation_failure_message"] = "Enter valid work location";
+        $value["is_valid"] = false;
+    } else {
+        $value["sanitized_value"] = test_input($user_entered_value);
+    }
+
+    return $value;
+}
+
+function is_valid_school_name($user_entered_value)
+{
+    $value = array(
+        "sanitized_value" => "",
+        "is_valid" => true, // assume valid input
+        "validation_failure_message" => ""
+    );
+
+
+    if (empty($user_entered_value)) {
+        $value["validation_failure_message"] = "School Name is required";
+        $value["is_valid"] = false;
+    } else {
+        $value["sanitized_value"] = test_input($user_entered_value);
+        if (!preg_match("/^[a-zA-Z ]*$/", $value["sanitized_value"])) {
+            $value["validation_failure_message"] = "Only letters and white space allowed";
+            $value["is_valid"] = false;
+        }
+    }
+
+    return $value;
+}
+
 ?>
