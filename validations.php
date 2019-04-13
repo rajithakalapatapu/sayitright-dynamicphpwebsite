@@ -8,7 +8,6 @@ function test_input($data)
     return $data;
 }
 
-
 function is_valid_first_name($user_entered_value)
 {
     $value = array(
@@ -53,7 +52,6 @@ function is_valid_last_name($user_entered_value)
 
     return $value;
 }
-
 
 function is_valid_telephone_number($user_entered_value)
 {
