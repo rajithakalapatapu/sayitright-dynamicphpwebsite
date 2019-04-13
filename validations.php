@@ -111,4 +111,22 @@ function is_valid_email($user_entered_value)
     return $value;
 }
 
+function is_valid_password($user_entered_value)
+{
+    $value = array(
+        "sanitized_value" => "",
+        "is_valid" => true, // assume valid input
+        "validation_failure_message" => ""
+    );
+
+    if (empty($user_entered_value)) {
+        $value["validation_failure_message"] = "Enter password";
+        $value["is_valid"] = false;
+    } else {
+        $value["sanitized_value"] = test_input($user_entered_value);
+    }
+
+    return $value;
+}
+
 ?>
