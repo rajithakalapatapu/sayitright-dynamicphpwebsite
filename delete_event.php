@@ -1,4 +1,6 @@
 <?php
+require_once('dboperations.php');
+
 // You'd put this code at the top of any "protected" page you create
 
 // Always start this first
@@ -15,12 +17,8 @@ if (isset($_SESSION['user_type']) && $_SESSION['user_type'] == "event" && isset(
 function delete_event($event_id)
 {
     try {
-        $connString = "mysql:host=localhost;dbname=rajithak_project1";
-        $user = "rk";
-        $pass = "Rklappy@2018";
-        $pdo = new PDO($connString, $user, $pass);
-        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        $success = false;
+        $pdo = get_pdo();
+
         $stmt = "delete from events where event_id = '%s';";
         $sql = sprintf($stmt, $event_id);
 

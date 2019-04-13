@@ -1,4 +1,5 @@
 <?php
+require_once('dboperations.php');
 
 // You'd put this code at the top of any "protected" page you create
 
@@ -16,12 +17,8 @@ if (isset($_SESSION['user_type']) && $_SESSION['user_type'] == "business" && iss
 function delete_business($business_id)
 {
     try {
-        $connString = "mysql:host=localhost;dbname=rajithak_project1";
-        $user = "rk";
-        $pass = "Rklappy@2018";
-        $pdo = new PDO($connString, $user, $pass);
-        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        $success = false;
+        $pdo = get_pdo();
+
         $stmt = "delete from my_businesses where business_id = '%s';";
         $sql = sprintf($stmt, $business_id);
 
