@@ -9,85 +9,39 @@
 <body id="wrapper">
 
 <?php
+require_once('validations.php');
+require_once('dboperations.php');
 
 $fnameErr = $lnameErr = $phoneErr = $MessageErr = "";
 $fname = $lname = $phone = $Message = "";
 $db_insert_status = "";
 
-function test_input($data)
-{
-    $data = trim($data);
-    $data = stripcslashes($data);
-    $data = htmlspecialchars($data);
-    return $data;
-}
-
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $validation_failed = false;
+    $fields_valid = true;
 
-    if (empty($_POST["fname"])) {
-        $fnameErr = "First Name is required";
+    $first_name_validation_result = is_valid_first_name($_POST["fname"]);
+    $fields_valid &= $first_name_validation_result["is_valid"];
+
+    $last_name_validation_result = is_valid_last_name($_POST["lname"]);
+    $fields_valid &= $last_name_validation_result["is_valid"];
+
+    $phone_validation_result = is_valid_telephone_number($_POST["phone"]);
+    $fields_valid &= $phone_validation_result["is_valid"];
+
+    $message_validation_result = is_valid_message($_POST["Message"]);
+    $fields_valid &= $message_validation_result["is_valid"];
+
+    if ($fields_valid) {
+        $stmt = "INSERT INTO contact_us VALUES ('%s','%s','%s','%s')";
+        $sql = sprintf(
+            $stmt,
+            $first_name_validation_result["sanitized_value"],
+            $last_name_validation_result["sanitized_value"],
+            $message_validation_result["sanitized_value"],
+            $phone_validation_result["sanitized_value"]);
+        $db_insert_status = execute_insert_query($sql);
     } else {
-        $fname = test_input($_POST["fname"]);
-        if (!preg_match("/^[a-zA-Z ]*$/", $fname)) {
-            $fnameErr = "Only letters and white space allowed";
-            $validation_failed = true;
-        }
-    }
-
-    if (empty($_POST["lname"])) {
-        $lnameErr = "last name is required";
-    } else {
-        $lname = test_input($_POST["lname"]);
-        if (!preg_match("/^[a-zA-Z ]*$/", $fname)) {
-            $lnameErr = "Only letters and white space allowed";
-            $validation_failed = true;
-        }
-    }
-
-    if (empty($_POST["phone"])) {
-        $phoneErr = "Please enter numbers";
-    } else {
-        $phone = test_input($_POST["phone"]);
-        if (!preg_match("/^[0-9]*$/", $phone)) {
-            $phoneErr = "Please enter valid numbers";
-            $validation_failed = true;
-        }
-    }
-
-    if (empty($_POST["Message"])) {
-        $MessageErr = "Please write some message";
-
-    } else {
-        $Message = test_input($_POST["Message"]);
-    }
-
-    if (!$validation_failed) {
-        try {
-
-            $connString = "mysql:host=localhost;dbname=rajithak_project1";
-            $user = "rk";
-            $pass = "Rklappy@2018";
-
-            $pdo = new PDO($connString, $user, $pass);
-            $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
-//        $sql = "INSERT INTO contact_us VALUES ('" . $fname . "','" . $lname . "','" . $Message . "','" . $phone . "')";
-
-            $stmt = "INSERT INTO contact_us VALUES ('%s','%s','%s','%s')";
-            $sql = sprintf($stmt, $fname, $lname, $Message, $phone);
-
-            $result = $pdo->query($sql);
-            if ($result) {
-                $db_insert_status = "Message sent successfully!";
-            } else {
-                $db_insert_status = "Failed to send message - please try again!";
-            }
-            $pdo = null;
-
-        } catch (PDOException $e) {
-            die($e->getMessage());
-        }
+        $db_insert_status = "Failed to send message - please try again!";
     }
 
 
@@ -126,21 +80,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <div class="contactusleft">
                 <div>
                     <input type="text" name="fname" placeholder="Enter your name" required>
-                    <span class="error"> *  <?php echo $fnameErr; ?></span>
+                    <span class="error"> *  <?php echo $first_name_validation_result["validation_failure_message"]; ?></span>
                 </div>
                 <div>
                     <input type="text" name="lname" placeholder="Enter last name" required>
-                    <span class="error"> * <?php echo $lnameErr; ?></span>
+                    <span class="error"> * <?php echo $last_name_validation_result["validation_failure_message"]; ?></span>
                 </div>
                 <div>
                     <input type="phone" name="phone" placeholder="Telephone" required>
-                    <span class="error"> * <?php echo $phoneErr; ?></span>
+                    <span class="error"> * <?php echo $phone_validation_result["validation_failure_message"]; ?></span>
                 </div>
             </div>
             <div class="contactusright">
                 <div>
                     <textarea rows="4" cols="50" name="Message" placeholder="Enter Message" required></textarea>
-                    <span class="error"> * <?php echo $MessageErr; ?></span>
+                    <span class="error"> * <?php echo $message_validation_result["validation_failure_message"]; ?></span>
                 </div>
                 <!--                <input id="contactus_button" type=""text">-->
                 <button class="contactussend" id="button">SEND MESSAGE</button>
