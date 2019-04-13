@@ -9,19 +9,19 @@
 <body id="wrapper">
 <nav>
     <div class="nav_left">
-        <a href="HomePage.html">
+        <a href="HomePage.php">
             <img src="imgsay/logo.png">
         </a>
     </div>
     <div class="nav_right">
         <ul>
-            <li><a href="HomePage.html">Home</a></li>
-            <li><a href="AboutUs.html">About US</a></li>
+            <li><a href="HomePage.php">Home</a></li>
+            <li><a href="AboutUs.php">About US</a></li>
             <li><a href="index.php">Blog</a></li>
-            <li><a href="buyfromus.html" class="activetab">Buy From US</a></li>
-            <li><a href="contactus.html">Contact US</a></li>
-            <li><a href="signup.html">Sign Up</a></li>
-            <li><a href="login.html">Login</a></li>
+            <li><a href="buyfromus.php" class="activetab">Buy From US</a></li>
+            <li><a href="contactus.php">Contact US</a></li>
+            <li><a href="signup.php">Sign Up</a></li>
+            <li><a href="login.php">Login</a></li>
         </ul>
     </div>
 </nav>
@@ -165,7 +165,7 @@
         <h6 id="footerh6"> You can the products that you added to your cart </h6>
     </div>
     <div class="footerright">
-        <button id="cartbuy" onclick="location.href = 'buyfromus2.html';">SUBMIT</button>
+        <button id="cartbuy" onclick="location.href = 'buyfromus2.php';">SUBMIT</button>
     </div>
 </div>
 <div class="copyright">

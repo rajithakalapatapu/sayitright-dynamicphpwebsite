@@ -10,13 +10,15 @@
 <body id="wrapper">
 
 <?php
-function test_input($data){
-    $data=trim($data);
-    $data=stripcslashes($data);
-    $data=htmlspecialchars($data);
+function test_input($data)
+{
+    $data = trim($data);
+    $data = stripcslashes($data);
+    $data = htmlspecialchars($data);
     return $data;
 
 }
+
 $subscribe_email = "";
 $subscribe_emailErr = "";
 
@@ -30,14 +32,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $subscribe_emailErr = "Enter a valid email ID";
         }
     }
+
+    $success = mail($subscribe_email, "Say It Right", "Thank you for subscribing to Say It right");
+    if ($success) {
+        $subscribe_emailErr = "yay!!!";
+    } else {
+        $subscribe_emailErr = "Resend";
+    }
 }
 
-$success = mail($subscribe_email, "Say It Right", "Thank you for subscribing to Say It right");
-if ($success) {
-    $subscribe_emailErr = "yay!!!";
-} else{
-    $subscribe_emailErr="Resend";
-}
 
 ?>
 
