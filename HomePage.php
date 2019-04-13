@@ -10,34 +10,25 @@
 <body id="wrapper">
 
 <?php
-function test_input($data)
-{
-    $data = trim($data);
-    $data = stripcslashes($data);
-    $data = htmlspecialchars($data);
-    return $data;
-
-}
+require_once('validations.php');
+require_once('dboperations.php');
 
 $subscribe_email = "";
 $subscribe_emailErr = "";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    if (empty($_POST["subscribe_email"])) {
-        $subscribe_emailErr = "Email required";
-    } else {
 
-        $subscribe_email = test_input($_POST["subscribe_email"]);
-        if (!filter_var($subscribe_email, FILTER_VALIDATE_EMAIL)) {
-            $subscribe_emailErr = "Enter a valid email ID";
+    $value = is_valid_email($_POST["subscribe_email"]);
+    $subscribe_emailErr = $value["validation_failure_message"];
+    $subscribe_email = $value["sanitized_value"];
+
+    if ($value["is_valid"]) {
+        $success = mail($subscribe_email, "Say It Right", "Thank you for subscribing to Say It right");
+        if ($success) {
+            $subscribe_emailErr = "Yay!!! Subscribed!";
+        } else {
+            $subscribe_emailErr = "Please retry.";
         }
-    }
-
-    $success = mail($subscribe_email, "Say It Right", "Thank you for subscribing to Say It right");
-    if ($success) {
-        $subscribe_emailErr = "yay!!!";
-    } else {
-        $subscribe_emailErr = "Resend";
     }
 }
 
