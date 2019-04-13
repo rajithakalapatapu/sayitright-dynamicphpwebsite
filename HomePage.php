@@ -96,7 +96,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </div>
         <div class="footerright">
             <form method="POST" action="<?php echo htmlspecialchars($_SERVER[PHP_SELF]) ?>">
-                <input type="email" name="subscribe_email" id="footertextarea" rows="1" cols="50"
+                <input type="email" name="subscribe_email" id="footertextarea"
                        placeholder="Enter email address" required></input>
                 <span class="error"> * <?php echo $subscribe_emailErr; ?> </span>
                 <input type="submit" id="footersubscribe" text="Subscribe">

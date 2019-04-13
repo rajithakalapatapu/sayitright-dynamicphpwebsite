@@ -23,12 +23,15 @@ function test_input($data)
 }
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $validation_failed = false;
+
     if (empty($_POST["fname"])) {
         $fnameErr = "First Name is required";
     } else {
         $fname = test_input($_POST["fname"]);
         if (!preg_match("/^[a-zA-Z ]*$/", $fname)) {
             $fnameErr = "Only letters and white space allowed";
+            $validation_failed = true;
         }
     }
 
@@ -38,7 +41,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $lname = test_input($_POST["lname"]);
         if (!preg_match("/^[a-zA-Z ]*$/", $fname)) {
             $lnameErr = "Only letters and white space allowed";
-
+            $validation_failed = true;
         }
     }
 
@@ -48,6 +51,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $phone = test_input($_POST["phone"]);
         if (!preg_match("/^[0-9]*$/", $phone)) {
             $phoneErr = "Please enter valid numbers";
+            $validation_failed = true;
         }
     }
 
@@ -58,32 +62,34 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $Message = test_input($_POST["Message"]);
     }
 
+    if (!$validation_failed) {
+        try {
 
-    try {
+            $connString = "mysql:host=localhost;dbname=rajithak_project1";
+            $user = "rk";
+            $pass = "Rklappy@2018";
 
-        $connString = "mysql:host=localhost;dbname=rajithak_project1";
-        $user = "rk";
-        $pass = "Rklappy@2018";
-
-        $pdo = new PDO($connString, $user, $pass);
-        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            $pdo = new PDO($connString, $user, $pass);
+            $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
 //        $sql = "INSERT INTO contact_us VALUES ('" . $fname . "','" . $lname . "','" . $Message . "','" . $phone . "')";
 
-        $stmt = "INSERT INTO contact_us VALUES ('%s','%s','%s','%s')";
-        $sql = sprintf($stmt, $fname, $lname, $Message, $phone);
+            $stmt = "INSERT INTO contact_us VALUES ('%s','%s','%s','%s')";
+            $sql = sprintf($stmt, $fname, $lname, $Message, $phone);
 
-        $result = $pdo->query($sql);
-        if ($result) {
-            $db_insert_status = "Message sent successfully!";
-        } else {
-            $db_insert_status = "Failed to send message - please try again!";
+            $result = $pdo->query($sql);
+            if ($result) {
+                $db_insert_status = "Message sent successfully!";
+            } else {
+                $db_insert_status = "Failed to send message - please try again!";
+            }
+            $pdo = null;
+
+        } catch (PDOException $e) {
+            die($e->getMessage());
         }
-        $pdo = null;
-
-    } catch (PDOException $e) {
-        die($e->getMessage());
     }
+
 
 }
 
@@ -119,21 +125,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
               action="<?php echo htmlspecialchars($_SERVER[PHP_SELF]); ?>">
             <div class="contactusleft">
                 <div>
-                    <input type="text" name="fname" placeholder="Enter your name">
+                    <input type="text" name="fname" placeholder="Enter your name" required>
                     <span class="error"> *  <?php echo $fnameErr; ?></span>
                 </div>
                 <div>
-                    <input type="text" name="lname" placeholder="Enter last name">
+                    <input type="text" name="lname" placeholder="Enter last name" required>
                     <span class="error"> * <?php echo $lnameErr; ?></span>
                 </div>
                 <div>
-                    <input type="phone" name="phone" placeholder="Telephone">
+                    <input type="phone" name="phone" placeholder="Telephone" required>
                     <span class="error"> * <?php echo $phoneErr; ?></span>
                 </div>
             </div>
             <div class="contactusright">
                 <div>
-                    <textarea rows="4" cols="50" name="Message" placeholder="Enter Message"></textarea>
+                    <textarea rows="4" cols="50" name="Message" placeholder="Enter Message" required></textarea>
                     <span class="error"> * <?php echo $MessageErr; ?></span>
                 </div>
                 <!--                <input id="contactus_button" type=""text">-->
