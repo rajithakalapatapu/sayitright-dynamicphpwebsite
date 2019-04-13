@@ -68,7 +68,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $pdo = new PDO($connString, $user, $pass);
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-        $sql = "INSERT INTO contact_us VALUES ('" . $fname . "','" . $lname . "','" . $Message . "','" . $phone . "')";
+//        $sql = "INSERT INTO contact_us VALUES ('" . $fname . "','" . $lname . "','" . $Message . "','" . $phone . "')";
+
+        $stmt = "INSERT INTO contact_us VALUES ('%s','%s','%s','%s')";
+        $sql = sprintf($stmt, $fname, $lname, $Message, $phone);
+
         $result = $pdo->query($sql);
         if ($result) {
             $db_insert_status = "Message sent successfully!";

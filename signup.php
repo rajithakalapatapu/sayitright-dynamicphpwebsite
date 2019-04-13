@@ -210,14 +210,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $result = $pdo->query($sql);
         if ($result) {
             $db_insert_status = "Account created successfully!";
-            if ($individual_signing_up) {
-                $redirect_link = "<a href=\"individuallogin.html\">Click here to go to your home page</a>";
-            } else if ($event_signing_up) {
-                $redirect_link = "<a href=\"eventlogin.html\">Click here to go to your home page</a>";
-            } else if ($business_signing_up) {
-                $redirect_link = "<a href=\"businesslogin.html\">Click here to go to your home page</a>";
-
-            }
+            $redirect_link = "<a href=\"login.php\">Click here to login</a>";
         } else {
             $db_insert_status = "Failed to create account - please try again!";
         }
