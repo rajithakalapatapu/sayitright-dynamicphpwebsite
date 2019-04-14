@@ -21,6 +21,16 @@
                 <li><a href="myconferences.php">My Conferences</a></li>
                 <li><a href="myevents.php">My Events</a></li>
                 <li><a href="usersettings.php" class="activetab">Settings</a></li>
+                <?php
+                session_start();
+
+                if (isset($_SESSION['user_type']) && isset($_SESSION['user_id'])) {
+                    // Grab user data from the database using the user_id
+                    // Let them access the "logged in only" pages
+                    echo "<li><a href=\"logout.php\">Logout</a></li>";
+                }
+
+                ?>
             </ul>
         </div>
     </nav>
