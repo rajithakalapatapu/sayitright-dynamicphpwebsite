@@ -141,4 +141,19 @@ function get_all_participanting_conferences($user_id)
     }
 }
 
+function get_product_details($product_id)
+{
+    try {
+        $pdo = get_pdo();
+        $stmt = "select * from products where product_id = '%s';";
+        $sql = sprintf($stmt, $product_id);
+
+        $result = $pdo->query($sql);
+        $pdo = null;
+        return $result;
+
+    } catch (PDOException $e) {
+        die($e->getMessage());
+    }
+}
 ?>

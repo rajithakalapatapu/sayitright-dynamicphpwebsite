@@ -6,6 +6,25 @@
     <link href='https://fonts.googleapis.com/css?family=Rajdhani' rel='stylesheet'>
 </head>
 
+<?php
+
+session_start();
+
+if ($_SERVER["REQUEST_METHOD"] == "GET") {
+    $product_id = isset($_GET['product_id']) ? $_GET['product_id'] : "";
+    $quantity = isset($_GET['quantity']) ? $_GET['quantity'] : 1;
+    $quantity = $quantity <= 0 ? 1 : $quantity;
+
+    $cart_item = array('quantity' => $quantity);
+
+    if(!isset($_SESSION['cart'])) {
+        $_SESSION['cart'] = array();
+    }
+
+    $_SESSION['cart'][$product_id] = $cart_item;
+}
+
+?>
 <body id="wrapper">
 <nav>
     <div class="nav_left">
@@ -79,15 +98,23 @@
             </div>
             <div class="modal-content-right">
                 <h4> Product Quantity </h4>
-                <input type="number" min="0" name="quantity" value="">
+                <input type="number" min="0" name="quantity" placeholder="1" id="product_quantity">
                 <h5> Note: Choose a quantity greater than 0 </h5>
                 <button class="add_to_cart_close" id="button" onclick="close_modal()">Close</button>
-                <button class="add_to_cart_add" id="button">Add to Cart</button>
+                <button class="add_to_cart_add" id="button" onclick="add_product_quantity_to_cart()">Add to Cart
+                </button>
+                <p id="product_id" style="display: none"></p>
             </div>
         </div>
     </div>
 </div>
 <script type="text/javascript">
+    function add_product_quantity_to_cart() {
+        product_id = document.getElementById('product_id').innerHTML;
+        quantity = document.getElementById('product_quantity').value;
+        window.location.href = "buyfromus.php?product_id=".concat(product_id).concat("&quantity=").concat(quantity);
+    }
+
     function close_modal() {
         var modal = document.getElementById('mymodal');
         modal.style.display = "none";
@@ -99,6 +126,7 @@
         var modalimg = document.getElementById('mymodelimg');
 
         modal.style.display = "block";
+        document.getElementById('product_id').innerHTML = button_id;
         switch (button_id) {
             case "2":
                 modalimg.src = "imgsay/franela1.jpg";

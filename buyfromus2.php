@@ -4,7 +4,12 @@
     <link rel="stylesheet" href="sayitright.css">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
+<?php
+session_start();
 
+$_SESSION['total'] = 0;
+
+?>
 <body id="wrapper">
     <nav>
         <div class="nav_left">
@@ -43,7 +48,7 @@
                     </select>
                     <input type="text" name="lname" value="Enter Postal Code">
                 </div>
-                <button class="shippingsend" id="button">SEND MESSAGE</button>
+                <button class="shippingsend" id="button">PLACE ORDER</button>
             </div>
             <div class="shipping_right">
                 <div class="shipping_right">
@@ -60,30 +65,39 @@
                         <div class="shipping_table_data">
                             <h5> Price </h5>
                         </div>
-                        <div class="shipping_table_data">
-                            <img src="imgsay/taza1.png">
-                        </div>
-                        <div class="shipping_table_data">
-                            <p> Cup </p>
-                        </div>
-                        <div class="shipping_table_data">
-                            <p> 2 </p>
-                        </div>
-                        <div class="shipping_table_data">
-                            <p> $28.89 </p>
-                        </div>
-                        <div class="shipping_table_data">
-                            <img src="imgsay/franela1.jpg">
-                        </div>
-                        <div class="shipping_table_data">
-                            <p> Flannel </p>
-                        </div>
-                        <div class="shipping_table_data">
-                            <p> 1 </p>
-                        </div>
-                        <div class="shipping_table_data">
-                            <p> $51.99 </p>
-                        </div>
+
+                        <?php
+                        require_once('dboperations.php');
+                        function get_each_row($product_id, $quantity) {
+                            $product_details = get_product_details($product_id);
+
+                            $details = $product_details->fetch();
+                            $each_cart_item = "
+                            <div class=\"shipping_table_data\">
+                                <p> %s </p>
+                            </div>
+                            <div class=\"shipping_table_data\">
+                                <p> %s </p>
+                            </div>
+                            <div class=\"shipping_table_data\">
+                                <p> %d </p>
+                            </div>
+                            <div class=\"shipping_table_data\">
+                                <p> %f </p>
+                            </div>
+                            ";
+
+                            $_SESSION['total'] += $details['price_per_unit'] * $quantity;
+                            return sprintf($each_cart_item, $product_id, $details['product_name'], $quantity,
+                                $details['price_per_unit'] * $quantity);
+                        }
+
+                        $cart_items = $_SESSION['cart'];
+                        foreach($cart_items as $product_id => $quantity) {
+                            echo get_each_row($product_id, $quantity['quantity']);
+                        }
+
+                        ?>
                         <div class="shipping_table_data">
                             <p> Total </p>
                         </div>
@@ -94,7 +108,7 @@
                             <p> USD </p>
                         </div>
                         <div class="shipping_table_data">
-                            <p> $109.77 </p>
+                            <p> <?php echo $_SESSION['total']; ?> </p>
                         </div>
                     </div>
                 </div>
