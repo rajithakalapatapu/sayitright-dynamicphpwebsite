@@ -4,6 +4,11 @@
     <link rel="stylesheet" href="sayitright.css">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
+<script>
+    function unconfirm_conference(conference_id, individual_id) {
+        window.location.href = "unconfirm_conference_participation.php?conference_id=".concat(conference_id).concat("&individual_id=").concat(individual_id);
+    }
+</script>
 <?php
 require_once('dboperations.php');
 ?>
@@ -61,10 +66,14 @@ require_once('dboperations.php');
                     <td class=\"table_cell\">%s</td>
                     <td class=\"table_cell\">%s</td>
                     <td class=\"table_cell\">%s</td>
-                    <td class=\"table_cell\">Unconfirm</td>
+                    <td class=\"table_cell\">
+                        <button id=\"delete_event\" onclick=\"unconfirm_conference('%d', '%d')\">Unconfirm</button>
+                    </td>
                     </tr>
                     ";
-                        echo sprintf($format, $row['conference_type'], $row['conference_name'], $row['conference_datetime'], $row['conference_location'], $row['conference_id']);
+                        echo sprintf($format,
+                            $row['conference_type'], $row['conference_name'], $row['conference_datetime'], $row['conference_location'],
+                            $row['conference_id'], $_SESSION['user_id']);
                     }
 
                     $pdo = null;
