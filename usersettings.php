@@ -8,6 +8,7 @@
 
 <?php
 require_once('dboperations.php');
+require_once('validations.php');
 // You'd put this code at the top of any "protected" page you create
 
 // Always start this first
@@ -53,7 +54,52 @@ try {
     die($e->getMessage());
 }
 
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $fields_valid = true;
 
+    $value = is_valid_first_name($_POST['fname']);
+    $fname = $value['sanitized_value'];
+    $fnameErr = $value['validation_failure_message'];
+    $fields_valid &= $value['is_valid'];
+
+    $value = is_valid_last_name(($_POST['lname']));
+    $lname = $value['sanitized_value'];
+    $lnameErr = $value['validation_failure_message'];
+    $fields_valid &= $value['is_valid'];
+
+    $value = is_valid_last_name(($_POST['work']));
+    $work = $value['sanitized_value'];
+    $workErr = $value['validation_failure_message'];
+    $fields_valid &= $value['is_valid'];
+
+    $value = is_valid_last_name(($_POST['school']));
+    $school = $value['sanitized_value'];
+    $schoolErr = $value['validation_failure_message'];
+    $fields_valid &= $value['is_valid'];
+
+    $value = is_valid_email(($_POST['email']));
+    $email = $value['sanitized_value'];
+    $emailErr = $value['validation_failure_message'];
+    $fields_valid &= $value['is_valid'];
+
+    $value = is_valid_password(($_POST['password']));
+    $password = $value['sanitized_value'];
+    $passwordErr = $value['validation_failure_message'];
+    $fields_valid &= $value['is_valid'];
+
+    if($fields_valid) {
+        $stmt = "update individual_users set first_name = '%s', last_name = '%s', place_of_work = '%s', password = '%s', school = '%s', email = '%s' where individual_id = '%s';";
+        $sql = sprintf($stmt, $fname, $lname, $work, $password, $school, $email, $_SESSION["user_id"]);
+
+        $result = execute_insert_query($sql);
+        if ($result) {
+            $db_insert_status = "Updated profile details successfully!";
+        } else {
+            $db_insert_status = "Failed to update profile details";
+        }
+    }
+
+}
 ?>
 
 <body id="wrapper">
@@ -97,7 +143,7 @@ try {
             </div>
             <div class="settings_right">
                 <h3 class="settingsh4"> Welcome to your profile </h3>
-                <form class="settings_form" action="POST">
+                <form class="settings_form" method="POST" action="<?php echo htmlspecialchars($_SERVER[PHP_SELF]); ?>">
                 <div class="shipping_one_line">
                     <div>
                         <input type="text" name="fname" placeholder=<?php echo $fname;?> required>
@@ -121,6 +167,9 @@ try {
                 <p> Change Password </p>
                 <button class="settingsbutton" id="button">SAVE CHANGES</button>
             </form>
+            </div>
+            <div>
+                <p> <?php echo $db_insert_status; ?> </p>
             </div>
 
         </div>
