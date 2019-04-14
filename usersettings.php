@@ -4,6 +4,7 @@
     <link rel="stylesheet" href="sayitright.css">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href='https://fonts.googleapis.com/css?family=Rajdhani' rel='stylesheet'>
+    <script src="validations.js"></script>
 </head>
 
 <?php
@@ -143,26 +144,32 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </div>
             <div class="settings_right">
                 <h3 class="settingsh4"> Welcome to your profile </h3>
-                <form class="settings_form" method="POST" action="<?php echo htmlspecialchars($_SERVER[PHP_SELF]); ?>">
+                <form class="settings_form" method="POST" action="<?php echo htmlspecialchars($_SERVER[PHP_SELF]); ?>" onsubmit="return submit_usersettings_form();">
                 <div class="shipping_one_line">
                     <div>
-                        <input type="text" name="fname" placeholder=<?php echo $fname;?> required>
+                        <input type="text" id="fname" name="fname" placeholder=<?php echo $fname;?> required>
+                        <span id="fnameErr" style="error"> <?php echo $fnameErr; ?> </span>
                     </div>
                     <div>
-                        <input type="text" name="lname" placeholder=<?php echo $lname;?> required>
+                        <input type="text" id="lname" name="lname" placeholder=<?php echo $lname;?> required>
+                        <span id="lnameErr" style="error"> <?php echo $lnameErr; ?> </span>
                     </div>
                 </div>
                 <div>
-                    <input type="text" name="work" placeholder=<?php echo $work; ?> required>
+                    <input type="text" id="work" name="work" placeholder=<?php echo $work; ?> required>
+                    <span id="workErr" style="error"> <?php echo $workErr; ?> </span>
                 </div>
                 <div>
-                    <input type="text" name="school" placeholder=<?php echo $school; ?> required>
+                    <input type="text" id="school" name="school" placeholder=<?php echo $school; ?> required>
+                    <span id="schoolErr" style="error"> <?php echo $schoolErr; ?> </span>
                 </div>
                 <div>
-                    <input type="email" name="email" placeholder=<?php echo $email; ?> required>
+                    <input type="email" id="email" name="email" placeholder=<?php echo $email; ?> required>
+                    <span id="emailErr" style="error"> <?php echo $emailErr; ?> </span>
                 </div>
                 <div>
-                    <input type="password" name="password" placeholder=<?php echo $password;?> required>
+                    <input type="password" id="password" name="password" placeholder=<?php echo $password;?> required>
+                    <span id="passwordErr" style="error"> <?php echo $passwordErr; ?> </span>
                 </div>
                 <p> Change Password </p>
                 <button class="settingsbutton" id="button">SAVE CHANGES</button>

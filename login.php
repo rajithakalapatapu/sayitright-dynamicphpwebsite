@@ -3,6 +3,9 @@
 <head>
     <link rel="stylesheet" href="sayitright.css">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <script src="validations.js">
+    </script>
 </head>
 
 <body id="wrapper">
@@ -97,15 +100,15 @@ if ($_SESSION['user_logged_in']) {
         <h2 id="breadcrumbh4">LOGIN</h2>
     </div>
     <div class="login margin10">
-        <form method="POST" action="<?php echo htmlspecialchars($_SERVER[PHP_SELF]); ?>">
+        <form method="POST" action="<?php echo htmlspecialchars($_SERVER[PHP_SELF]); ?>" onsubmit="return submit_login_form();">
             <div class="loginform">
                 <div align="left">
-                    <input type="text" name="email" placeholder="Enter email" required>
-                    <span class="error">*<?php echo $emailErr; ?></span>
+                    <input type="text" id="email" name="email" placeholder="Enter email" required>
+                    <span id="emailErr" class="error">*<?php echo $emailErr; ?></span>
                 </div>
                 <div align="left">
-                    <input type="password" name="password" placeholder="Enter password" required>
-                    <span class="error">*<?php echo $passwordErr; ?></span>
+                    <input type="password" id="password" name="password" placeholder="Enter password" required>
+                    <span id="passwordErr" class="error">*<?php echo $passwordErr; ?></span>
                 </div>
                 <div align="right">
                     <button class="loginsend" id="button">SEND</button>

@@ -86,10 +86,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <h6 id="footerh6"> We won't send any kind of spam </h6>
         </div>
         <div class="footerright">
-            <form method="POST" action="<?php echo htmlspecialchars($_SERVER[PHP_SELF]) ?>">
+            <form method="POST" action="<?php echo htmlspecialchars($_SERVER[PHP_SELF]) ?>" onsubmit="return submit_subscribe_form()">
                 <input type="email" name="subscribe_email" id="footertextarea"
                        placeholder="Enter email address" required></input>
-                <span class="error"> * <?php echo $subscribe_emailErr; ?> </span>
+                <span id="subscribe_emailErr" class="error"> * <?php echo $subscribe_emailErr; ?> </span>
                 <input type="submit" id="footersubscribe" text="Subscribe">
             </form>
         </div>
