@@ -218,4 +218,26 @@ function is_valid_time($user_entered_value)
 
 }
 
+function is_valid_license_number($user_entered_value)
+{
+    $value = array(
+        "sanitized_value" => "",
+        "is_valid" => true, // assume valid input
+        "validation_failure_message" => ""
+    );
+
+    if (empty($user_entered_value)) {
+        $value["validation_failure_message"] = "License number is required";
+        $value["is_valid"] = false;
+    } else {
+        $value["sanitized_value"] = test_input($user_entered_value);
+        if (!preg_match("/^[a-zA-Z0-9 -]*$/", $value["sanitized_value"])) {
+            $value["validation_failure_message"] = "Only letters and white space allowed";
+            $value["is_valid"] = false;
+        }
+    }
+
+    return $value;
+}
+
 ?>

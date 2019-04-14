@@ -35,13 +35,6 @@ if (isset($_SESSION['user_type']) && $_SESSION['user_type'] == "event" && isset(
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $all_fields_valid = true;
 
-    $add_event = array(
-        "event_name" => "",
-        "event_datetime" => "",
-        "event_type" => "",
-        "event_location" => ""
-    );
-
     $value = is_valid_first_name($_POST["event_name"]);
     $event_name = $value["sanitized_value"];
     $event_nameErr = $value["validation_failure_message"];
@@ -68,11 +61,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $all_fields_valid &= $value["is_valid"];
 
     $event_datetime = $event_date . " " . $event_time;
+
     if ($all_fields_valid) {
         $stmt = "insert into events (`event_name`, `event_datetime`, `event_type`, `event_location`, `event_created_by`) values ('%s', '%s', '%s', '%s', '%s');";
         $sql = sprintf($stmt, $event_name, $event_datetime, $event_type, $event_location, $_SESSION["user_id"]);
 
-        echo $sql;
         $result = execute_insert_query($sql);
         if ($result) {
             $db_insert_status = "Event added successfully!";
@@ -147,7 +140,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </table>
         <button class="add_event" id="button" onclick="show_event_add_form()">Add a new event</button>
         <form method="post" action="<?php echo htmlspecialchars($_SERVER[PHP_SELF]); ?>" id="add_event_form"
-              style="display: block">
+              style="display: none">
             <div class="add_event_form_div">
                 <input type="text" name="event_name" placeholder="Enter event name" required>
                 <span style="error"> <?php echo $event_nameErr; ?> </span>
