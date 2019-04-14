@@ -36,42 +36,33 @@
             <p class="buyfromuscontenttitle"> Buy From Us </p>
         </div>
         <div class="buyfromustable">
-            <div class="buyfromustabledata">
-                <img src="imgsay/franela1.jpg" alt="mug">
-                <p> $24.99 </p>
-                <p> Some quick example text to build on the card title and make up the bulk of the card's content. </p>
-                <button class="buytablebutton" id="one" onclick="show_pop_up(this.id)"> ADD TO CART</button>
-            </div>
-            <div class="buyfromustabledata">
-                <img src="imgsay/taza1.png" alt="mug">
-                <p> $24.99 </p>
-                <p> Some quick example text to build on the card title and make up the bulk of the card's content. </p>
-                <button class="buytablebutton" id="two" onclick="show_pop_up(this.id)"> ADD TO CART</button>
-            </div>
-            <div class="buyfromustabledata">
-                <img src="imgsay/franela2.jpg" alt="mug">
-                <p> $24.99 </p>
-                <p> Some quick example text to build on the card title and make up the bulk of the card's content. </p>
-                <button class="buytablebutton" id="three" onclick="show_pop_up(this.id)"> ADD TO CART</button>
-            </div>
-            <div class="buyfromustabledata">
-                <img src="imgsay/taza2.png" alt="mug">
-                <p> $24.99 </p>
-                <p> Some quick example text to build on the card title and make up the bulk of the card's content. </p>
-                <button class="buytablebutton" id="four" onclick="show_pop_up(this.id)"> ADD TO CART</button>
-            </div>
-            <div class="buyfromustabledata">
-                <img src="imgsay/franela3.jpg" alt="mug">
-                <p> $24.99 </p>
-                <p> Some quick example text to build on the card title and make up the bulk of the card's content. </p>
-                <button class="buytablebutton" id="five" onclick="show_pop_up(this.id)"> ADD TO CART</button>
-            </div>
-            <div class="buyfromustabledata">
-                <img src="imgsay/taza3.png" alt="mug">
-                <p> $24.99 </p>
-                <p> Some quick example text to build on the card title and make up the bulk of the card's content. </p>
-                <button class="buytablebutton" id="six" onclick="show_pop_up(this.id)"> ADD TO CART</button>
-            </div>
+            <?php
+            require_once('dboperations.php');
+
+            try {
+                $pdo = get_pdo();
+
+                $sql = "select * from products;";
+                $result = $pdo->query($sql);
+                while ($row = $result->fetch()) {
+                    $table_row = "%s %s %s %d";
+
+                    $table_row = "<div class=\"buyfromustabledata\">
+                        <img src=\"%s\" alt=\"mug\">
+                        <p> %s </p>
+                        <p> %s </p>
+                        <button class=\"buytablebutton\" id=\"%d\" onclick=\"show_pop_up(this.id)\"> ADD TO CART</button>
+                    </div>";
+
+                    echo sprintf($table_row, $row["product_picture"], $row["price_per_unit"], $row["product_description"], $row["product_id"]);
+                }
+
+                $pdo = null;
+            } catch (PDOException $e) {
+                die($e->getMessage());
+            }
+
+            ?>
         </div>
     </div>
 </div>
@@ -88,8 +79,8 @@
             </div>
             <div class="modal-content-right">
                 <h4> Product Quantity </h4>
-                <input type="text" name="quantity" value="">
-                <h5> Note: Some quick example text to <br> build on the card title and <br> make up the bulk of the card's content </h5>
+                <input type="number" min="0" name="quantity" value="">
+                <h5> Note: Choose a quantity greater than 0 </h5>
                 <button class="add_to_cart_close" id="button" onclick="close_modal()">Close</button>
                 <button class="add_to_cart_add" id="button">Add to Cart</button>
             </div>
@@ -109,37 +100,39 @@
 
         modal.style.display = "block";
         switch (button_id) {
-            case "one":
+            case "2":
                 modalimg.src = "imgsay/franela1.jpg";
                 modalimg.alt = "shirt";
                 break;
-            case "two":
+            case "1":
                 modalimg.src = "imgsay/taza1.png";
                 modalimg.alt = "cup";
                 break;
-            case "three":
+            case "4":
                 modalimg.src = "imgsay/franela2.jpg";
                 modalimg.alt = "shirt";
                 break;
-            case "four":
+            case "3":
                 modalimg.src = "imgsay/taza2.png";
                 modalimg.alt = "cup";
                 break;
-            case "five":
+            case "6":
                 modalimg.src = "imgsay/franela3.jpg";
                 modalimg.alt = "shirt";
                 break;
-            case "six":
+            case "5":
                 modalimg.src = "imgsay/taza3.png";
                 modalimg.alt = "cup";
                 break;
             default:
         }
 
-        span.onclick = function(event) {
+        span.onclick = function (event) {
             modal.style.display = "none";
         }
-        window.onclick = function(event) {
+
+
+        window.onclick = function (event) {
             if (event.target == modal) {
                 modal.style.display = "none";
             }
@@ -158,6 +151,7 @@
     //         modal.style.display = "none";
     //     }
     // }
+
 </script>
 <div class="footer">
     <div class="footerleft">
@@ -169,9 +163,9 @@
     </div>
 </div>
 <div class="copyright">
-    <p> <br> </p>
-    <p> <br> </p>
-    <p> <br> </p>
+    <p><br></p>
+    <p><br></p>
+    <p><br></p>
     <p class="white"> Copyright &copy 2019 All rights reserved</p>
     <p class="white"> | This web is made with &#9825;</p>
     <p class="blue">by DiazApps </p>
