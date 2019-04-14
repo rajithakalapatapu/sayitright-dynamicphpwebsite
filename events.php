@@ -4,6 +4,11 @@
     <link rel="stylesheet" href="sayitright.css">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
+<script>
+    function confirm_event(event_id, individual_id) {
+        window.location.href = "confirm_event_participation.php?event_id=".concat(event_id).concat("&individual_id=").concat(individual_id);
+    }
+</script>
 <?php
 require_once('dboperations.php');
 ?>
@@ -61,10 +66,14 @@ require_once('dboperations.php');
                     <td class=\"table_cell\">%s</td>
                     <td class=\"table_cell\">%s</td>
                     <td class=\"table_cell\">%s</td>
-                    <td class=\"table_cell\">Confirm</td>
+                    <td class=\"table_cell\">
+                        <button id=\"delete_event\" onclick=\"confirm_event('%d', '%d')\">Confirm</button>
+                    </td>
                     </tr>
                     ";
-                        echo sprintf($format, $row['event_type'], $row['event_name'], $row['event_datetime'], $row['event_location'], $row['event_id']);
+                        echo sprintf($format,
+                            $row['event_type'], $row['event_name'], $row['event_datetime'], $row['event_location'],
+                            $row['event_id'], $_SESSION['user_id']);
                     }
 
                     $pdo = null;
