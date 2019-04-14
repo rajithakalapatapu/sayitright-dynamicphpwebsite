@@ -47,4 +47,66 @@ function execute_insert_query($sql)
     return false;
 }
 
+function get_all_conferences_count()
+{
+    try {
+        $pdo = get_pdo();
+        $sql = "select count(*) as conf_count from conferences;";
+
+        $result = $pdo->query($sql);
+        $row = $result->fetch();
+
+        return $row["conf_count"];
+    } catch (PDOException $e) {
+        die($e->getMessage());
+    }
+}
+
+function get_all_events_count()
+{
+    try {
+        $pdo = get_pdo();
+        $sql = "select count(*) as event_count from events;";
+
+        $result = $pdo->query($sql);
+        $row = $result->fetch();
+
+        return $row["event_count"];
+    } catch (PDOException $e) {
+        die($e->getMessage());
+    }
+}
+
+function get_my_conferences_count($user_id)
+{
+    try {
+        $pdo = get_pdo();
+        $stmt = "select count(*) as conf_count from my_conferences where individual_id = '%s';";
+        $sql = sprintf($stmt, $user_id);
+
+        $result = $pdo->query($sql);
+        $row = $result->fetch();
+
+        return $row["conf_count"];
+    } catch (PDOException $e) {
+        die($e->getMessage());
+    }
+}
+
+function get_my_events_count($user_id)
+{
+    try {
+        $pdo = get_pdo();
+        $stmt = "select count(*) as event_count from my_events where individual_id = '%s';";
+        $sql = sprintf($stmt, $user_id);
+
+        $result = $pdo->query($sql);
+        $row = $result->fetch();
+
+        return $row["event_count"];
+    } catch (PDOException $e) {
+        die($e->getMessage());
+    }
+}
+
 ?>

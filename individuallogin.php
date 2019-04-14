@@ -7,6 +7,7 @@
 
 <body id="wrapper">
 <?php
+require_once('dboperations.php');
 // You'd put this code at the top of any "protected" page you create
 
 // Always start this first
@@ -19,6 +20,12 @@ if (isset($_SESSION['user_type']) && $_SESSION['user_type'] == "individual" && i
     // Redirect them to the login page
     echo '<script>window.location.href = "login.php";</script>';
 }
+
+$all_conferences_count = get_all_conferences_count();
+$all_events_count = get_all_events_count();
+$my_conferences_count = get_my_conferences_count($_SESSION['user_id']);
+$my_events_count = get_my_events_count($_SESSION['user_id']);
+
 ?>
     <nav>
         <div class="nav_left">
@@ -43,7 +50,7 @@ if (isset($_SESSION['user_type']) && $_SESSION['user_type'] == "individual" && i
                     <img src="imgsay/globe-americas-solid-white.png" class="summary_icon">
                 </div>
                 <div class="summary_card_text">
-                    <h2 class="individuallogintext"> 26 </h2>
+                    <h2 class="individuallogintext"> <?php echo $my_conferences_count + $my_events_count; ?> </h2>
                     <h4 class="individuallogintext"> activities performed </h4>
                 </div>
                 <div class="summary_card_label">
@@ -55,7 +62,7 @@ if (isset($_SESSION['user_type']) && $_SESSION['user_type'] == "individual" && i
                     <img src="imgsay/users-solid-white.png" class="summary_icon">
                 </div>
                 <div class="summary_card_text">
-                    <h2 class="individuallogintext"> 18 </h2>
+                    <h2 class="individuallogintext"> <?php echo $my_conferences_count; ?> </h2>
                     <h4 class="individuallogintext"> activities performed </h4>
                 </div>
                 <div class="summary_card_label">
@@ -67,7 +74,7 @@ if (isset($_SESSION['user_type']) && $_SESSION['user_type'] == "individual" && i
                     <img src="imgsay/star-solid-white.png" class="summary_icon">
                 </div>
                 <div class="summary_card_text">
-                    <h2 class="individuallogintext"> 8 </h2>
+                    <h2 class="individuallogintext"> <?php echo $my_events_count; ?> </h2>
                     <h4 class="individuallogintext"> activities performed </h4>
                 </div>
                 <div class="summary_card_label">
@@ -79,7 +86,7 @@ if (isset($_SESSION['user_type']) && $_SESSION['user_type'] == "individual" && i
                     <img src="imgsay/trophy-solid-white.png" class="summary_icon">
                 </div>
                 <div class="summary_card_text">
-                    <h2 class="individuallogintext"> 14 </h2>
+                    <h2 class="individuallogintext"> <?php echo $all_conferences_count+$all_events_count-$my_conferences_count-$my_events_count; ?> </h2>
                     <h4 class="individuallogintext"> activities to carry out </h4>
                 </div>
                 <div class="summary_card_label">
