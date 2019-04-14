@@ -138,20 +138,6 @@
             }
         }
     }
-
-    // var modal = document.getElementById('mymodal');
-    // var buttonone = document.getElementById('one');
-    // var span = document.getElementsByClassName("close")[0];
-    // buttonone.onclick = function() {
-    //     console.log("Hello world!");
-    //     modal.style.display = "block";
-    // }
-    // window.onclick = function(event) {
-    //     if (event.target == modal) {
-    //         modal.style.display = "none";
-    //     }
-    // }
-
 </script>
 <div class="footer">
     <div class="footerleft">
