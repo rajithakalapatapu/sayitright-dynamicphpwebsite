@@ -4,6 +4,12 @@
     <link rel="stylesheet" href="sayitright.css">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
+<script>
+    function confirm_conference(conference_id, individual_id) {
+        window.location.href = "confirm_conference_participation.php?conference_id=".concat(conference_id).concat("&individual_id=").concat(individual_id);
+    }
+</script>
+
 <?php
 require_once('dboperations.php');
 ?>
@@ -51,7 +57,7 @@ require_once('dboperations.php');
                 try {
                     $pdo = get_pdo();
                     $stmt = "select * from conferences;";
-                    $sql = sprintf($stmt, $_SESSION['user_id']);
+                    $sql = sprintf($stmt);
 
                     $result = $pdo->query($sql);
                     while ($row = $result->fetch()) {
@@ -61,10 +67,14 @@ require_once('dboperations.php');
                     <td class=\"table_cell\">%s</td>
                     <td class=\"table_cell\">%s</td>
                     <td class=\"table_cell\">%s</td>
-                    <td class=\"table_cell\">Confirm</td>
+                    <td class=\"table_cell\">
+                        <button id=\"delete_event\" onclick=\"confirm_conference('%d', '%d')\">Confirm</button>
+                    </td>
                     </tr>
                     ";
-                        echo sprintf($format, $row['conference_type'], $row['conference_name'], $row['conference_datetime'], $row['conference_location'], $row['conference_id']);
+                        echo sprintf($format,
+                            $row['conference_type'], $row['conference_name'], $row['conference_datetime'], $row['conference_location'],
+                            $row['conference_id'], $_SESSION['user_id']);
                     }
 
                     $pdo = null;
