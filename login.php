@@ -10,12 +10,14 @@
 <?php
 require_once('validations.php');
 require_once('dboperations.php');
+require_once('headerutils.php');
 
 $email = $password = "";
 $emailErr = $passwordErr = "";
 
+session_start();
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    session_start();
 
     $value = is_valid_email($_POST["email"]);
     $emailErr = $value["validation_failure_message"];
@@ -34,6 +36,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             while ($row = $indi_result->fetch()) {
                 $_SESSION['user_type'] = "individual";
                 $_SESSION['user_id'] = $row['individual_id'];
+                $_SESSION['user_logged_in'] = true;
                 echo '<script>window.location.href = "individuallogin.php";</script>';
             }
 
@@ -42,8 +45,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             while ($row = $event_result->fetch()) {
                 $_SESSION['user_type'] = "event";
                 $_SESSION['user_id'] = $row['event_user_id'];
+                $_SESSION['user_logged_in'] = true;
                 echo '<script>window.location.href = "eventlogin.php";</script>';
-
             }
 
             $busi_sql = "select business_user_id from business_users where email='" . $email . "' and password='" . $password . "'";
@@ -51,6 +54,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             while ($row = $busi_result->fetch()) {
                 $_SESSION['user_type'] = "business";
                 $_SESSION['user_id'] = $row['business_user_id'];
+                $_SESSION['user_logged_in'] = true;
                 echo '<script>window.location.href = "businesslogin.php";</script>';
             }
 
@@ -62,7 +66,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 }
 
-
+if ($_SESSION['user_logged_in']) {
+    // if user goes to login page via browser back/fwd button take him/her to their respective home page
+    echo go_to_home_page_for_logged_in_user();
+}
 ?>
 
 <nav>
