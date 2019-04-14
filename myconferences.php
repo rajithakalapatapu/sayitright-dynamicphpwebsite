@@ -4,6 +4,9 @@
     <link rel="stylesheet" href="sayitright.css">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
+<?php
+require_once('dboperations.php');
+?>
 
 <body id="wrapper">
     <nav>
@@ -44,26 +47,32 @@
                     <th class="table_header">City</th>
                     <th class="table_header">Confirmation</th>
                 </tr>
-                <tr>
-                    <td class="table_cell">Oratory</td>
-                    <td class="table_cell">is the art of making formal speeches which strongly affect people's feelings and beliefs</td>
-                    <td class="table_cell">25 April<br>2019</td>
-                    <td class="table_cell">Boston</td>
-                    <td class="table_cell">confirm</td>
-                </tr>
-                <tr>
-                    <td class="table_cell">Vocalization</td>
-                    <td class="table_cell">a sound you use your voice to make it, especially by singing it.</td>
-                    <td class="table_cell">25 April<br>2019</td>
-                    <td class="table_cell">Texas</td>
-                    <td class="table_cell">confirm</td>
-                </tr>
-                <tr>
-                    <td class="table_cell">Social<br> Communication</td>
-                    <td class="table_cell">the formation of a structure of relations inside a group, which provides a basis for order and patterns<br>relationships for new members</td>
-                    <td class="table_cell">25 April<br>2019</td>
-                    <td class="table_cell">Detroit</td>
-                    <td class="table_cell">confirm</td>
+                <?php
+                try {
+                    $pdo = get_pdo();
+                    $stmt = "select * from my_conferences where individual_id = '%s';";
+                    $sql = sprintf($stmt, $_SESSION['user_id']);
+
+                    $result = $pdo->query($sql);
+                    while ($row = $result->fetch()) {
+                        $format = "
+                    <tr>
+                    <td class=\"table_cell\">%s</td>
+                    <td class=\"table_cell\">%s</td>
+                    <td class=\"table_cell\">%s</td>
+                    <td class=\"table_cell\">%s</td>
+                    <td class=\"table_cell\">Unconfirm</td>
+                    </tr>
+                    ";
+                        echo sprintf($format, $row['conference_type'], $row['conference_name'], $row['conference_datetime'], $row['conference_location'], $row['conference_id']);
+                    }
+
+                    $pdo = null;
+
+                } catch (PDOException $e) {
+                    die($e->getMessage());
+                }
+                ?>
             </table>
         </div>
     </div>

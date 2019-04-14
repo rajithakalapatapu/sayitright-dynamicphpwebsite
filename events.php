@@ -61,6 +61,7 @@ require_once('dboperations.php');
                     <td class=\"table_cell\">%s</td>
                     <td class=\"table_cell\">%s</td>
                     <td class=\"table_cell\">%s</td>
+                    <td class=\"table_cell\">Confirm</td>
                     </tr>
                     ";
                         echo sprintf($format, $row['event_type'], $row['event_name'], $row['event_datetime'], $row['event_location'], $row['event_id']);

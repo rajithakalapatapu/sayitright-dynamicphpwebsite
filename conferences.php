@@ -44,6 +44,7 @@ require_once('dboperations.php');
                     <th class="table_header">Description</th>
                     <th class="table_header">Date</th>
                     <th class="table_header">Location</th>
+                    <th class="table_header">Confirm</th>
                 </tr>
 
                 <?php
@@ -60,6 +61,7 @@ require_once('dboperations.php');
                     <td class=\"table_cell\">%s</td>
                     <td class=\"table_cell\">%s</td>
                     <td class=\"table_cell\">%s</td>
+                    <td class=\"table_cell\">Confirm</td>
                     </tr>
                     ";
                         echo sprintf($format, $row['conference_type'], $row['conference_name'], $row['conference_datetime'], $row['conference_location'], $row['conference_id']);
