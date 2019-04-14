@@ -33,8 +33,10 @@ $user_details = array(
 try {
     $pdo = get_pdo();
 
-    $stmt = "select * from individual_users where individual_id = '%s'";
+    $stmt = get_select_statement_for_logged_in_user();
     $sql = sprintf($stmt, $_SESSION["user_id"]);
+
+    print_r($stmt, $sql);
 
     $result = $pdo->query($sql);
     while ($row = $result->fetch()) {
@@ -95,23 +97,23 @@ try {
                 <form class="settings_form" action="POST">
                 <div class="shipping_one_line">
                     <div>
-                        <input type="text" name="fname" placeholder=<?php echo $fname;?> required="">
+                        <input type="text" name="fname" placeholder=<?php echo $fname;?> required>
                     </div>
                     <div>
-                        <input type="text" name="lname" placeholder=<?php echo $lname;?> required="">
+                        <input type="text" name="lname" placeholder=<?php echo $lname;?> required>
                     </div>
                 </div>
                 <div>
-                    <input type="text" name="work" placeholder=<?php echo $work; ?> required="">
+                    <input type="text" name="work" placeholder=<?php echo $work; ?> required>
                 </div>
                 <div>
-                    <input type="text" name="school" placeholder=<?php echo $school; ?> required="">
+                    <input type="text" name="school" placeholder=<?php echo $school; ?> required>
                 </div>
                 <div>
-                    <input type="email" name="email" placeholder=<?php echo $email; ?> required="">
+                    <input type="email" name="email" placeholder=<?php echo $email; ?> required>
                 </div>
                 <div>
-                    <input type="password" name="password" placeholder=<?php echo $password;?> required="">
+                    <input type="password" name="password" placeholder=<?php echo $password;?> required>
                 </div>
                 <p> Change Password </p>
                 <button class="settingsbutton" id="button">SAVE CHANGES</button>

@@ -12,6 +12,22 @@ function get_pdo()
     return $pdo;
 }
 
+function get_select_statement_for_logged_in_user()
+{
+    session_start();
+    if ($_SESSION["user_type"] == "individual") {
+        $select_statement = "select * from individual_users where individual_id = '%s'";
+    } else if ($_SESSION["user_type"] == "event") {
+        $select_statement = "select * from event_users where event_user_id = '%s'";
+    } else if ($_SESSION["user_type"] == "business") {
+        $select_statement = "select * from business_users where business_user_id = '%s'";
+    } else {
+        $select_statement = "";
+    }
+
+    return $select_statement;
+}
+
 function execute_insert_query($sql)
 {
     if (empty($sql)) {
