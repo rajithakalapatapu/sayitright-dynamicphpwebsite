@@ -6,6 +6,54 @@
     <link href='https://fonts.googleapis.com/css?family=Rajdhani' rel='stylesheet'>
 </head>
 
+<?php
+require_once('dboperations.php');
+// You'd put this code at the top of any "protected" page you create
+
+// Always start this first
+session_start();
+
+if (isset($_SESSION['user_type']) && isset($_SESSION['user_id'])) {
+    // Grab user data from the database using the user_id
+    // Let them access the "logged in only" pages
+} else {
+    // Redirect them to the login page
+    echo '<script>window.location.href = "login.php";</script>';
+}
+
+$user_details = array(
+    "fname" => "",
+    "lname" => "",
+    "work" => "",
+    "school" => "",
+    "email" => "",
+    "password" => ""
+);
+
+try {
+    $pdo = get_pdo();
+
+    $stmt = "select * from individual_users where individual_id = '%s'";
+    $sql = sprintf($stmt, $_SESSION["user_id"]);
+
+    $result = $pdo->query($sql);
+    while ($row = $result->fetch()) {
+        $fname = $row['first_name'];
+        $lname = $row['last_name'];
+        $work = $row['place_of_work'];
+        $school = $row['school'];
+        $email = $row['email'];
+        $password = $row['password'];
+    }
+    $pdo = null;
+
+} catch (PDOException $e) {
+    die($e->getMessage());
+}
+
+
+?>
+
 <body id="wrapper">
     <nav>
         <div class="nav_left">
@@ -47,23 +95,23 @@
                 <form class="settings_form" action="POST">
                 <div class="shipping_one_line">
                     <div>
-                        <input type="text" name="fname" placeholder="Enter your name" required="">
+                        <input type="text" name="fname" placeholder=<?php echo $fname;?> required="">
                     </div>
                     <div>
-                        <input type="text" name="lname" placeholder="Enter last name" required="">
+                        <input type="text" name="lname" placeholder=<?php echo $lname;?> required="">
                     </div>
                 </div>
                 <div>
-                    <input type="text" name="work" placeholder="Enter place of work" required="">
+                    <input type="text" name="work" placeholder=<?php echo $work; ?> required="">
                 </div>
                 <div>
-                    <input type="text" name="school" placeholder="Enter school" required="">
+                    <input type="text" name="school" placeholder=<?php echo $school; ?> required="">
                 </div>
                 <div>
-                    <input type="email" name="email" placeholder="Enter email" required="">
+                    <input type="email" name="email" placeholder=<?php echo $email; ?> required="">
                 </div>
                 <div>
-                    <input type="password" name="password" placeholder="Enter password" required="">
+                    <input type="password" name="password" placeholder=<?php echo $password;?> required="">
                 </div>
                 <p> Change Password </p>
                 <button class="settingsbutton" id="button">SAVE CHANGES</button>
