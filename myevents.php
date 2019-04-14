@@ -58,7 +58,7 @@ require_once('dboperations.php');
                 <?php
                 try {
                     $pdo = get_pdo();
-                    $stmt = "select * from my_events where individual_id = '%s';";
+                    $stmt = "select * from events where event_id in (select event_id from my_events where individual_id = '%s');";
                     $sql = sprintf($stmt, $_SESSION['user_id']);
 
                     $result = $pdo->query($sql);
