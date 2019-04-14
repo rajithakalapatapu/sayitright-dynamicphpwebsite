@@ -8,8 +8,8 @@
 function get_pdo()
 {
     $connString = "mysql:host=localhost;dbname=rajithak_test_database";
-    $user = "rajithak";
-    $pass = " T.6kvAkuBaeH5FOoktR22";
+    $user = "rajithak_1wzatb";
+    $pass = "C,Hr]PR1d[a]";
 
     $pdo = new PDO($connString, $user, $pass);
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -21,8 +21,9 @@ try {
     $pdo = get_pdo();
     $sql = "select * from test";
     $result = $pdo->query($sql);
+
     while ($row = $result->fetch()) {
-        echo $row["test_string"];
+        echo $row["test"];
     }
 } catch(PDOException $e) {
     die($e->getMessage());
