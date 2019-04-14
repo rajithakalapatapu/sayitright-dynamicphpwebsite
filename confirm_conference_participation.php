@@ -27,7 +27,8 @@ function confirm_conference_participation($conference_id, $individual_id)
         $pdo = null;
         return $result;
     } catch (PDOException $e) {
-        die($e->getMessage());
+//        die($e->getMessage());
+        return false;
     }
 }
 

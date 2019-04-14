@@ -26,7 +26,8 @@ function confirm_event_participation($event_id, $individual_id)
         $pdo = null;
         return $result;
     } catch (PDOException $e) {
-        die($e->getMessage());
+//        die($e->getMessage());
+        return false;
     }
 }
 
