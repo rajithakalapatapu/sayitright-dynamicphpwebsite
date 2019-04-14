@@ -65,7 +65,10 @@ try {
         </div>
         <div class="nav_right">
             <ul>
-                <li><a href="individuallogin.php">Home</a></li>
+                <?php
+                require_once('headerutils.php');
+                echo get_home_link_for_logged_in_user();
+                ?>
                 <li><a href="conferences.php">Conferences</a></li>
                 <li><a href="events.php">Events</a></li>
                 <li><a href="myconferences.php">My Conferences</a></li>
