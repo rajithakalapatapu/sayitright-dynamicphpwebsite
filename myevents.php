@@ -7,6 +7,11 @@
 <?php
 require_once('dboperations.php');
 ?>
+<script>
+    function unconfirm_event(event_id, individual_id) {
+        window.location.href = "unconfirm_event_participation.php?event_id=".concat(event_id).concat("&individual_id=").concat(individual_id);
+    }
+</script>
 
 <body id="wrapper">
     <nav>
@@ -50,7 +55,7 @@ require_once('dboperations.php');
                 <?php
                 try {
                     $pdo = get_pdo();
-                    $stmt = "select * from events;";
+                    $stmt = "select * from my_events where individual_id = '%s';";
                     $sql = sprintf($stmt, $_SESSION['user_id']);
 
                     $result = $pdo->query($sql);
@@ -61,10 +66,14 @@ require_once('dboperations.php');
                     <td class=\"table_cell\">%s</td>
                     <td class=\"table_cell\">%s</td>
                     <td class=\"table_cell\">%s</td>
-                    <td class=\"table_cell\">Unconfirm</td>
+                    <td class=\"table_cell\">
+                        <button id=\"delete_event\" onclick=\"unconfirm_event('%d', '%d')\">Unconfirm</button>
+                    </td>
                     </tr>
                     ";
-                        echo sprintf($format, $row['event_type'], $row['event_name'], $row['event_datetime'], $row['event_location'], $row['event_id']);
+                        echo sprintf($format,
+                            $row['event_type'], $row['event_name'], $row['event_datetime'], $row['event_location'],
+                            $row['event_id'], $_SESSION['user_id']);
                     }
 
                     $pdo = null;
