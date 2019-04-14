@@ -109,4 +109,36 @@ function get_my_events_count($user_id)
     }
 }
 
+function get_all_participanting_events($user_id)
+{
+    try {
+        $pdo = get_pdo();
+        $stmt = "select * from events where event_id in (SELECT event_id FROM `my_events` WHERE individual_id = '%s');";
+        $sql = sprintf($stmt, $user_id);
+
+        $result = $pdo->query($sql);
+        $pdo = null;
+        return $result;
+
+    } catch (PDOException $e) {
+        die($e->getMessage());
+    }
+}
+
+function get_all_participanting_conferences($user_id)
+{
+    try {
+        $pdo = get_pdo();
+        $stmt = "select * from conferences where conference_id in (SELECT conference_id FROM `my_conferences` WHERE individual_id = '%s');";
+        $sql = sprintf($stmt, $user_id);
+
+        $result = $pdo->query($sql);
+        $pdo = null;
+        return $result;
+
+    } catch (PDOException $e) {
+        die($e->getMessage());
+    }
+}
+
 ?>
