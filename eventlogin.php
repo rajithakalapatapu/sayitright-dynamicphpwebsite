@@ -10,8 +10,13 @@
     function delete_event(event_id) {
         window.location.href = "delete_event.php?event_id=".concat(event_id);
     }
+
+    function show_event_add_form() {
+        document.getElementById("add_event_form").style.display = "block";
+    }
 </script>
 <?php
+require_once('validations.php');
 require_once('dboperations.php');
 
 // You'd put this code at the top of any "protected" page you create
@@ -26,6 +31,58 @@ if (isset($_SESSION['user_type']) && $_SESSION['user_type'] == "event" && isset(
     // Redirect them to the login page
     echo '<script>window.location.href = "login.php";</script>';
 }
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $all_fields_valid = true;
+
+    $add_event = array(
+        "event_name" => "",
+        "event_datetime" => "",
+        "event_type" => "",
+        "event_location" => ""
+    );
+
+    $value = is_valid_first_name($_POST["event_name"]);
+    $event_name = $value["sanitized_value"];
+    $event_nameErr = $value["validation_failure_message"];
+    $all_fields_valid &= $value["is_valid"];
+
+    $value = is_valid_first_name($_POST["event_type"]);
+    $event_type = $value["sanitized_value"];
+    $event_typeErr = $value["validation_failure_message"];
+    $all_fields_valid &= $value["is_valid"];
+
+    $value = is_valid_first_name($_POST["event_location"]);
+    $event_location = $value["sanitized_value"];
+    $event_locationErr = $value["validation_failure_message"];
+    $all_fields_valid &= $value["is_valid"];
+
+    $value = is_valid_date($_POST["event_date"]);
+    $event_date = $value["sanitized_value"];
+    $event_dateErr = $value["validation_failure_message"];
+    $all_fields_valid &= $value["is_valid"];
+
+    $value = is_valid_time($_POST["event_time"]);
+    $event_time = $value["sanitized_value"];
+    $event_timeErr = $value["validation_failure_message"];
+    $all_fields_valid &= $value["is_valid"];
+
+    $event_datetime = $event_date . " " . $event_time;
+    if ($all_fields_valid) {
+        $stmt = "insert into events (`event_name`, `event_datetime`, `event_type`, `event_location`, `event_created_by`) values ('%s', '%s', '%s', '%s', '%s');";
+        $sql = sprintf($stmt, $event_name, $event_datetime, $event_type, $event_location, $_SESSION["user_id"]);
+
+        echo $sql;
+        $result = execute_insert_query($sql);
+        if ($result) {
+            $db_insert_status = "Event added successfully!";
+        } else {
+            $db_insert_status = "Failed to add event";
+        }
+    }
+
+}
+
 ?>
 <nav>
     <div class="nav_left">
@@ -88,7 +145,34 @@ if (isset($_SESSION['user_type']) && $_SESSION['user_type'] == "event" && isset(
             }
             ?>
         </table>
-        <button class="add_event" id="button">Add a new event</button>
+        <button class="add_event" id="button" onclick="show_event_add_form()">Add a new event</button>
+        <form method="post" action="<?php echo htmlspecialchars($_SERVER[PHP_SELF]); ?>" id="add_event_form"
+              style="display: block">
+            <div class="add_event_form_div">
+                <input type="text" name="event_name" placeholder="Enter event name" required>
+                <span style="error"> <?php echo $event_nameErr; ?> </span>
+            </div>
+            <div class="add_event_form_div">
+                <input type="date" name="event_date" placeholder="Select event date and time" required>
+                <span style="error"> <?php echo $event_dateErr; ?> </span>
+                <input type="time" name="event_time" placeholder="Select event date and time" required>
+                <span style="error"> <?php echo $event_timeErr; ?> </span>
+            </div>
+            <div class="add_event_form_div">
+                <input type="text" name="event_type" placeholder="Enter event type" required>
+                <span style="error"> <?php echo $event_typeErr; ?> </span>
+            </div>
+            <div class="add_event_form_div">
+                <input type="text" name="event_location" placeholder="Enter event location" required>
+                <span style="error"> <?php echo $event_locationErr; ?> </span>
+            </div>
+            <div class="add_event_form_div">
+                <input type="submit" value="Add event">
+            </div>
+            <div class="add_event_form_div">
+                <p> <?php echo $db_insert_status; ?>    </p>
+            </div>
+        </form>
     </div>
 </div>
 <div class="copyright">
@@ -99,6 +183,7 @@ if (isset($_SESSION['user_type']) && $_SESSION['user_type'] == "event" && isset(
     <p class="white"> | This web is made with &#9825;</p>
     <p class="blue">by DiazApps </p>
 </div>
+
 </body>
 
 </html>

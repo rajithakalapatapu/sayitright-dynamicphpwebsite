@@ -170,4 +170,52 @@ function is_valid_school_name($user_entered_value)
     return $value;
 }
 
+function is_valid_date($user_entered_value)
+{
+    $value = array(
+        "sanitized_value" => "",
+        "is_valid" => true, // assume valid input
+        "validation_failure_message" => ""
+    );
+
+    if (empty($user_entered_value)) {
+        $value["validation_failure_message"] = "Event date is required";
+        $value["is_valid"] = false;
+    } else {
+        $value["sanitized_value"] = test_input($user_entered_value);
+        $d = DateTime::createFromFormat('Y-m-d', $user_entered_value);
+        if (!($d && $d->format('Y-m-d') == $user_entered_value)) {
+            $value["validation_failure_message"] = "Only valid dates are allowed";
+            $value["is_valid"] = false;
+        }
+    }
+
+    return $value;
+
+}
+
+
+function is_valid_time($user_entered_value)
+{
+    $value = array(
+        "sanitized_value" => "",
+        "is_valid" => true, // assume valid input
+        "validation_failure_message" => ""
+    );
+
+    if (empty($user_entered_value)) {
+        $value["validation_failure_message"] = "Event date is required";
+        $value["is_valid"] = false;
+    } else {
+        $value["sanitized_value"] = test_input($user_entered_value);
+        if (!preg_match("/^[0-9]{2}:[0-9]{2}$/", $value["sanitized_value"])) {
+            $value["validation_failure_message"] = "Only letters and white space allowed";
+            $value["is_valid"] = false;
+        }
+    }
+
+    return $value;
+
+}
+
 ?>

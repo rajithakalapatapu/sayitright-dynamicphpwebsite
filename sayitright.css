@@ -240,7 +240,7 @@ nav ul li a {
 }
 
 nav ul li a:link {
-    columns: #777777;
+    color: #777777;
     widows: 125px;
     text-decoration: none;
     text-align: center;
@@ -1176,4 +1176,8 @@ textarea {
     width: 80%;
     text-align: center;
     margin: auto 20% auto 20%;
+}
+
+.add_event_form_div {
+    padding: 5px;
 }

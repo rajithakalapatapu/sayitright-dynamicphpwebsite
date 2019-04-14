@@ -39,7 +39,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $last_name_validation_result["sanitized_value"],
             $message_validation_result["sanitized_value"],
             $phone_validation_result["sanitized_value"]);
-        $db_insert_status = execute_insert_query($sql);
+        $result = execute_insert_query($sql);
+
+        if ($result) {
+            $db_insert_status = "Message sent successfully!";
+        } else {
+            $db_insert_status = "Failed to send message - please try again!";
+        }
+
+
     } else {
         $db_insert_status = "Failed to send message - please try again!";
     }
