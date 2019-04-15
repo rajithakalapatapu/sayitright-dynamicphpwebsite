@@ -3,11 +3,7 @@
 <head>
     <link rel="stylesheet" href="sayitright.css">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <script>
-        function clear_cart() {
-            window.location.href = 'delete_cart.php';
-        }
-    </script>
+    <script src="validations.js"></script>
 </head>
 <?php
 session_start();
@@ -36,7 +32,7 @@ $_SESSION['total'] = 0;
         <p class="buyfromuscontenttitle"> Buy From Us </p>
         <div class="shipping">
 
-            <form method="post" action="<?php echo htmlspecialchars($_SERVER[PHP_SELF]); ?>">
+            <form method="post" action="<?php echo htmlspecialchars($_SERVER[PHP_SELF]); ?>" onsubmit="return submit_shipping_form();">
                 <div class="shipping_left">
                     <h2 class="shippingh3"> Contact Information </h2>
                     <input name="email" id="email" placeholder="Enter Email" type="text" required>

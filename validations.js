@@ -12,6 +12,11 @@ function is_valid_password(password) {
     return true;
 }
 
+function is_valid_postal(postal_code) {
+    pattern = new RegExp(/^[0-9]{5}/);
+    return pattern.test(postal_code);
+}
+
 function submit_login_form() {
     email = document.getElementById('email').value;
     password = document.getElementById('password').value;
@@ -265,4 +270,62 @@ function submit_usersettings_form() {
 
     return true;
 
+}
+
+function reset_shipping_form_errors() {
+    elements = ['fnameErr', 'lnameErr', 'addressErr', 'emailErr', 'apartmentErr', 'cityErr', 'postalErr'];
+    reset_form_errors(elements);
+}
+
+function submit_shipping_form() {
+    reset_shipping_form_errors();
+
+    valid_fname = is_valid_text(document.getElementById('fname').value);
+    if (!valid_fname) {
+        document.getElementById('fnameErr').innerHTML = "Enter a valid name";
+        return false;
+    }
+
+    valid_lname = is_valid_text(document.getElementById('lname').value);
+    if (!valid_lname) {
+        document.getElementById('lnameErr').innerHTML = "Enter a valid name";
+        return false;
+    }
+
+    valid_email = is_valid_email(document.getElementById('email').value);
+    if (!valid_email) {
+        document.getElementById('emailErr').innerHTML = "Enter a valid email";
+        return false;
+    }
+
+    valid_address = is_valid_text(document.getElementById('address').value);
+    if (!valid_address) {
+        document.getElementById('addressErr').innerHTML = "Enter a valid address";
+        return false;
+    }
+
+    valid_apartment = is_valid_text(document.getElementById('apartment').value);
+    if (!valid_apartment) {
+        document.getElementById('apartmentErr').innerHTML = "Enter a valid apartment";
+        return false;
+    }
+
+    valid_city = is_valid_text(document.getElementById('city').value);
+    if (!valid_city) {
+        document.getElementById('cityErr').innerHTML = "Enter a valid city";
+        return false;
+    }
+
+    valid_postal = is_valid_postal(document.getElementById('postal').value);
+    if (!valid_postal) {
+        document.getElementById('postalErr').innerHTML = "Enter a valid postal code";
+        return false;
+    }
+
+    return true;
+}
+
+
+function clear_cart() {
+    window.location.href = 'delete_cart.php';
 }
