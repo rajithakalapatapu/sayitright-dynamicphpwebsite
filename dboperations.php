@@ -2,9 +2,9 @@
 
 function get_pdo()
 {
-    $connString = "mysql:host=localhost;dbname=rajithak_project1";
-    $user = "rk";
-    $pass = "Rklappy@2018";
+    $connString = "mysql:host=localhost;dbname=rajithak_project4";
+    $user = "rajithak_p4_user";
+    $pass = "rajithak_p4_user";
 
     $pdo = new PDO($connString, $user, $pass);
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
