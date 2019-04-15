@@ -240,4 +240,26 @@ function is_valid_license_number($user_entered_value)
     return $value;
 }
 
+function is_valid_postal($user_entered_value)
+{
+    $value = array(
+        "sanitized_value" => "",
+        "is_valid" => true, // assume valid input
+        "validation_failure_message" => ""
+    );
+
+    if (empty($user_entered_value)) {
+        $value["validation_failure_message"] = "Postal code is required";
+        $value["is_valid"] = false;
+    } else {
+        $value["sanitized_value"] = test_input($user_entered_value);
+        if (!preg_match("/^[0-9]{5}$/", $value["sanitized_value"])) {
+            $value["validation_failure_message"] = "Only numbers are allowed";
+            $value["is_valid"] = false;
+        }
+    }
+
+    return $value;
+}
+
 ?>

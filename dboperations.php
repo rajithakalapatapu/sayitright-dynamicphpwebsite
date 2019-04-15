@@ -156,4 +156,31 @@ function get_product_details($product_id)
         die($e->getMessage());
     }
 }
+
+function get_order_id($email, $order_total, $postal)
+{
+    try {
+        $pdo = get_pdo();
+
+        $stmt = "select order_id from orders where order_email = '%s' and order_total = '%s' and order_pincode = '%s'";
+        $sql = sprintf($stmt, $email, $order_total, $postal);
+
+        $result = $pdo->query($sql);
+        $order_id = $result->fetch()['order_id'];
+
+        $pdo = null;
+        return $order_id;
+    } catch (PDOException $e) {
+        die($e->getMessage());
+    }
+}
+
+function add_entry_to_order_product($order_id, $product_id, $quantity)
+{
+    $stmt = "insert into order_products values ('%s', '%s', '%s')";
+    $sql = sprintf($stmt, $order_id, $product_id, $quantity);
+    return execute_insert_query($sql);
+}
+
+
 ?>
