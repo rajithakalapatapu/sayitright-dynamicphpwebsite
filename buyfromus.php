@@ -21,7 +21,9 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
         $_SESSION['cart'] = array();
     }
 
-    $_SESSION['cart'][$product_id] = $cart_item;
+    if($product_id != "") {
+        $_SESSION['cart'][$product_id] = $cart_item;
+    }
 }
 
 ?>

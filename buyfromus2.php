@@ -3,6 +3,11 @@
 <head>
     <link rel="stylesheet" href="sayitright.css">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script>
+        function clear_cart() {
+            window.location.href = 'delete_cart.php';
+        }
+    </script>
 </head>
 <?php
 session_start();
@@ -49,23 +54,11 @@ $_SESSION['total'] = 0;
                     <input type="text" name="lname" value="Enter Postal Code">
                 </div>
                 <button class="shippingsend" id="button">PLACE ORDER</button>
+                <button class="shippingsend" id="button" onclick="clear_cart()">CLEAR CART</button>
             </div>
             <div class="shipping_right">
                 <div class="shipping_right">
                     <div class="shipping_table">
-                        <div class="shipping_table_data">
-                            <h5> ID </h5>
-                        </div>
-                        <div class="shipping_table_data">
-                            <h5> Name </h5>
-                        </div>
-                        <div class="shipping_table_data">
-                            <h5> Units </h5>
-                        </div>
-                        <div class="shipping_table_data">
-                            <h5> Price </h5>
-                        </div>
-
                         <?php
                         require_once('dboperations.php');
                         function get_each_row($product_id, $quantity) {
@@ -74,7 +67,7 @@ $_SESSION['total'] = 0;
                             $details = $product_details->fetch();
                             $each_cart_item = "
                             <div class=\"shipping_table_data\">
-                                <p> %s </p>
+                                <img src=\"%s\">
                             </div>
                             <div class=\"shipping_table_data\">
                                 <p> %s </p>
@@ -88,28 +81,56 @@ $_SESSION['total'] = 0;
                             ";
 
                             $_SESSION['total'] += $details['price_per_unit'] * $quantity;
-                            return sprintf($each_cart_item, $product_id, $details['product_name'], $quantity,
+                            return sprintf($each_cart_item, $details['product_picture'], $details['product_name'], $quantity,
                                 $details['price_per_unit'] * $quantity);
                         }
 
                         $cart_items = $_SESSION['cart'];
-                        foreach($cart_items as $product_id => $quantity) {
-                            echo get_each_row($product_id, $quantity['quantity']);
+                        if(!empty($cart_items)) {
+
+                            echo "
+                                
+                            <div class=\"shipping_table_data\">
+                                <h5> ID </h5>
+                            </div>
+                            <div class=\"shipping_table_data\">
+                                <h5> Name </h5>
+                            </div>
+                            <div class=\"shipping_table_data\">
+                                <h5> Units </h5>
+                            </div>
+                            <div class=\"shipping_table_data\">
+                                <h5> Price </h5>
+                            </div>
+                            ";
+
+
+                            foreach($cart_items as $product_id => $quantity) {
+                                echo get_each_row($product_id, $quantity['quantity']);
+                            }
+
+                            $total_line = "
+                            <div class=\"shipping_table_data\">
+                                <p> Total </p>
+                            </div>
+                            <div class=\"shipping_table_data\">
+                                <p> </p>
+                            </div>
+                            <div class=\"shipping_table_data\">
+                                <p> USD </p>
+                            </div>
+                            <div class=\"shipping_table_data\">
+                                <p> %s </p>
+                            </div>";
+
+                            echo sprintf($total_line, $_SESSION['total']);
+                        } else {
+                            echo "Cart is empty";
                         }
 
+
                         ?>
-                        <div class="shipping_table_data">
-                            <p> Total </p>
-                        </div>
-                        <div class="shipping_table_data">
-                            <p> </p>
-                        </div>
-                        <div class="shipping_table_data">
-                            <p> USD </p>
-                        </div>
-                        <div class="shipping_table_data">
-                            <p> <?php echo $_SESSION['total']; ?> </p>
-                        </div>
+
                     </div>
                 </div>
             </div>
