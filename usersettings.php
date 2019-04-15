@@ -1,3 +1,7 @@
+<?php
+// Always start this first
+session_start();
+?>
 <html>
 
 <head>
@@ -12,8 +16,6 @@ require_once('dboperations.php');
 require_once('validations.php');
 // You'd put this code at the top of any "protected" page you create
 
-// Always start this first
-session_start();
 
 if (isset($_SESSION['user_type']) && isset($_SESSION['user_id'])) {
     // Grab user data from the database using the user_id

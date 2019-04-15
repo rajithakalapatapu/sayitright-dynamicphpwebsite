@@ -1,3 +1,7 @@
+<?php
+session_start();
+?>
+
 <html>
 
 <head>
@@ -17,8 +21,6 @@ require_once('headerutils.php');
 
 $email = $password = "";
 $emailErr = $passwordErr = "";
-
-session_start();
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 

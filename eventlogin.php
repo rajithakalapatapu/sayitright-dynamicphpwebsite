@@ -1,3 +1,7 @@
+<?php
+// Always start this first
+session_start();
+?>
 <html>
 
 <head>
@@ -22,8 +26,6 @@ require_once('dboperations.php');
 // You'd put this code at the top of any "protected" page you create
 
 // Always start this first
-session_start();
-
 if (isset($_SESSION['user_type']) && $_SESSION['user_type'] == "event" && isset($_SESSION['user_id'])) {
     // Grab user data from the database using the user_id
     // Let them access the "logged in only" pages

@@ -1,3 +1,7 @@
+<?php
+session_start();
+?>
+
 <html>
 
 <head>
@@ -8,7 +12,6 @@
 
 <?php
 
-session_start();
 
 if ($_SERVER["REQUEST_METHOD"] == "GET") {
     $product_id = isset($_GET['product_id']) ? $_GET['product_id'] : "";

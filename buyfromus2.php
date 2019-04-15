@@ -1,3 +1,7 @@
+<?php
+session_start();
+?>
+
 <html>
 
 <head>
@@ -8,8 +12,6 @@
 <?php
 require_once('validations.php');
 require_once('dboperations.php');
-
-session_start();
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $all_fields_valid = true;
